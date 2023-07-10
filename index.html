@@ -6,5 +6,10 @@
   <body>
     <h1>Hello World</h1>
     <p>I'm hosted with GitHub Pages.</p>
+    <script>
+      d3.json("scripts/csvjson.json", function(data) {
+        console.log(data);
+      });
+    </script>
   </body>
 </html>
