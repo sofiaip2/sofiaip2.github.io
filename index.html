@@ -3,13 +3,18 @@
   <head>
     <script src="d3.min.js"></script>
   </head>
-  <body>
+  <body onload='init()'>
     <h1>Investigating Correlations Between Music and Mental Health</h1>
     <p>Sofia Perry, UIUC CS 416 SU23</p>
     <script>
-      d3.csv("scripts/mxmh_survey_results.csv", function(data) {
-        console.log(data);
-      });
+        async function init() {
+          const data = await d3.csv("scripts/mxmh_survey_results.csv");
+          d3.select('body').selectAll('p').data(data).enter().append('p').html(function(d,i) {return d.Age;});
+        }
+      
+      //d3.csv("scripts/mxmh_survey_results.csv", function(data) {
+        //console.log(data);
+      //});
     </script>
   </body>
 </html>
