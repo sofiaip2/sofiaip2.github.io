@@ -19,7 +19,7 @@
         console.log("scales");
         var g = svg.append("g").attr("transform", "translate(" + 100 + "," + 100 + ")");
         console.log("var g");
-        xScale.domain(data?.items.map(function(d) {return d.Age;}));
+        xScale.domain(data.map(function(d) {return d.Age;}));
         console.log("xScale");
         yScale.domain([0, d3.max(data, function(d) { return d.Depression;})]);
         console.log("more scales");
