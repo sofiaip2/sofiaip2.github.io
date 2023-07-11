@@ -7,7 +7,7 @@
     <h1>Investigating Correlations Between Music and Mental Health</h1>
     <p>Sofia Perry, UIUC CS 416 SU23</p>
     <script>
-      d3.json("scripts/mxmh_survey_results.csv", function(data) {
+      d3.csv("scripts/mxmh_survey_results.csv", function(data) {
         console.log(data);
       });
       let c = d3.count(data, d => d.amount);
