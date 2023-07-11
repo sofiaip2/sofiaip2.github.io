@@ -2,6 +2,11 @@
 <html>
   <head>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+      .bar {
+        fill: steelblue;
+      }
+    </style>
   </head>
   <body>
     <h1>Investigating Correlations Between Music and Mental Health</h1>
@@ -18,7 +23,7 @@
           yScale.domain([0, d3.max(data, function(d) { return d.Depression;})]);
           g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale)).append("text").attr("y", height - 250).attr("x", width - 100).attr("text-anchor", "end").attr("stroke", "black").text("Age");
           g.append("g").call(d3.axisLeft(yScale).tickFormat(function(d){return d;}).ticks(1)).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "-5.1em").attr("stroke", "black").text("Depression");
-          g.selectAll(".bar").data(data).enter().append("rect").attr("class", "bar").attr("x", function(d) { return xScale(d.Age);}).attr("y", function(d) { return yScale (d.Depression);}).attr("width", xScale.bandwidth()).attr("height", function(d) { return height - yScale(d.value); });
+          g.selectAll(".bar").data(data).enter().append("rect").attr("class", "bar").attr("x", function(d) { return xScale(d.Age);}).attr("y", function(d) { return yScale(d.Depression);}).attr("width", xScale.bandwidth()).attr("height", function(d) { return height - yScale(d.value); });
           console.log("one");
         });
       //d3.csv("scripts/mxmh_survey_results.csv", function(data) {
