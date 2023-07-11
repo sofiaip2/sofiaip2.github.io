@@ -8,8 +8,9 @@
     <p>Sofia Perry, UIUC CS 416 SU23</p>
     <svg width = "600" height="500"></svg>
     <script>
-        const data = d3.csv("scripts/mxmh_survey_results.csv")
-        console.log(data);
+        data = d3.csv("scripts/mxmh_survey_results.csv"), function(data) {
+          console.log(data);
+        });
         console.log("data added");
         var svg = d3.select("svg"), margin = 200, width = svg.attr("width") - margin, height = svg.attr("height") - margin
         svg.append("text").attr("transform", "translate(100,0)").attr("x", 50).attr("y", 50).attr("font-size", "24px").text("Age vs. Depression")
