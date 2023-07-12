@@ -23,7 +23,7 @@
           yScale.domain([0, d3.max(data, function(d) { return d3.count(data, d=>d.Age);})]);
           g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale)).append("text").attr("y", height - 250).attr("x", width - 100).attr("text-anchor", "end").attr("stroke", "black").text("Age");
           g.append("g").call(d3.axisLeft(yScale).tickFormat(function(d){return d;}).ticks(10)).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "-5.1em").attr("stroke", "black").text("Depression");
-          g.selectAll(".bar").data(data).enter().append("rect").attr("class", "bar").attr("x", function(d) { return xScale(d.Age);}).attr("y", function(d) { return yScale(d3.count(data, d=>d.Age));}).attr("width", xScale.bandwidth()).attr("height", function(d) { return height - yScale(d3.count(data, d=>d.Age)); });
+          g.selectAll(".bar").data(data).enter().append("rect").attr("class", "bar").attr("x", function(d) { return xScale(d.Age);}).attr("y", function(d) { return yScale(d.Depression);}).attr("width", xScale.bandwidth()).attr("height", function(d) { return height - yScale(d.Depression); });
         });
       //d3.csv("scripts/mxmh_survey_results.csv", function(data) {
         //console.log(data);
