@@ -30,7 +30,7 @@
               data.sort(function(a,b) { return a.Age - b.Age })
               myChart();
             } else if (selectedOption == "Descending") {
-              data.sort(function(a,b) { return a.Age + b.Age })
+              data.sort(function(b,a) { return a.Age - b.Age })
               myChart();
             }
           });
