@@ -21,6 +21,7 @@
           d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
           const selectItems = ["Ascending", "Descending"];
           d3.select(mySelection).append("span").append("select").attr("id","selection").attr("name", "tasks").selectAll("option").data(selectItems).enter().append("option").attr("value",d=>d).text(d=>d);
+          document.addEventListener("DOMContentLoaded", myChart());
           d3.select("#selection").on("change",function() {
             const selectedOption = d3.select(this).node().value;
             if (selectedOption == "Ascending") {
