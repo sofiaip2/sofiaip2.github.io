@@ -16,7 +16,7 @@
         var data = d3.csv("scripts/mxmh_survey_results.csv");
         data.then(function (data) {
           data.sort((a,b) => { 
-            return d3.ascending(a.letter, b.letter)
+            return d3.ascending(a.number, b.number)
           })
           var svg = d3.select("svg"), margin = 200, width = svg.attr("width") - margin, height = svg.attr("height") - margin
           svg.append("text").attr("transform", "translate(100,0)").attr("x", 50).attr("y", 50).attr("font-size", "24px").text("Age vs. Depression")
