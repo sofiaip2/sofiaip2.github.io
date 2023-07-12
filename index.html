@@ -17,6 +17,7 @@
     <script>
         var data = d3.csv("scripts/mxmh_survey_results.csv");
         data.then(function (data) {
+          /*
           const mySelection = document.getElementById("selectMe");
           d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
           const selectItems = ["Ascending", "Descending"];
@@ -32,8 +33,8 @@
               myChart();
             }
           })
-          
-          //data.sort(function(a,b) { return a.Age - b.Age });
+          *\
+          data.sort(function(a,b) { return a.Age - b.Age });
           function myChart() {
           var svg = d3.select("svg"), margin = 200, width = svg.attr("width") - margin, height = svg.attr("height") - margin
           svg.append("text").attr("transform", "translate(100,0)").attr("x", 50).attr("y", 50).attr("font-size", "24px").text("Age vs. Depression")
