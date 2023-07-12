@@ -17,12 +17,13 @@
     <script>
         var data = d3.csv("scripts/mxmh_survey_results.csv");
         data.then(function (data) {
-          /*
+          
           const mySelection = document.getElementById("selectMe");
           d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
           const selectItems = ["Ascending", "Descending"];
           d3.select(mySelection).append("span").append("select").attr("id","selection").attr("name", "tasks").selectAll("option").data(selectItems).enter().append("option").attr("value",d=>d).text(d=>d);
-          document.addEventListener("DOMContentLoaded", myChart());
+          myChart();
+          //document.addEventListener("DOMContentLoaded", myChart());
           d3.select("#selection").on("change",function() {
             const selectedOption = d3.select(this).node().value;
             if (selectedOption == "Ascending") {
@@ -33,9 +34,9 @@
               myChart();
             }
           })
-          */
-          data.sort(function(a,b) { return a.Age - b.Age });
-          myChart();
+          
+          //data.sort(function(a,b) { return a.Age - b.Age });
+          //myChart();
           function myChart() {
           var svg = d3.select("svg"), margin = 200, width = svg.attr("width") - margin, height = svg.attr("height") - margin
           svg.append("text").attr("transform", "translate(100,0)").attr("x", 50).attr("y", 50).attr("font-size", "24px").text("Age vs. Depression")
