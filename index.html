@@ -27,7 +27,7 @@
             if (selectedOption == "Ascending") {
               data.sort(function(a,b) { return a.Age - b.Age })
             } else if (selectedOption == "Descending") {
-              data.sort(function(b,a) { return a.Age - b.Age })
+              data.sort(function(a,b) { return a.Age + b.Age })
             }
             myChart();
           })
