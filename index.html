@@ -11,8 +11,8 @@
   <body>
     <h1>Investigating Correlations Between Music and Mental Health</h1>
     <p>Sofia Perry, UIUC CS 416 SU23</p>
-    <div id="selectMe"></div>
-    <div id="chartContainer"></div>
+    //<div id="selectMe"></div>
+    //<div id="chartContainer"></div>
     <svg width = "900" height="500"></svg>
     <script>
         var data = d3.csv("scripts/mxmh_survey_results.csv");
@@ -46,7 +46,7 @@
           g.append("g").call(d3.axisLeft(yScale).tickFormat(function(d){return d;}).ticks(10)).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "-5.1em").attr("stroke", "black").text("Depression");
           g.selectAll(".bar").data(data).enter().append("rect").attr("class", "bar").attr("x", function(d) { return xScale(d.Age);}).attr("y", function(d) { return yScale(d.Depression);}).attr("width", xScale.bandwidth()).attr("height", function(d) { return height - yScale(d.Depression); });
         
-          }
+          };
         });
       //d3.csv("scripts/mxmh_survey_results.csv", function(data) {
         //console.log(data);
