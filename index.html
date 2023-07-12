@@ -26,10 +26,11 @@
             const selectedOption = d3.select(this).node().value;
             if (selectedOption == "Ascending") {
               data.sort(function(a,b) { return a.Age - b.Age })
+              myChart();
             } else if (selectedOption == "Descending") {
               data.sort(function(a,b) { return a.Age + b.Age })
+              myChart();
             }
-            myChart();
           })
           
           //data.sort(function(a,b) { return a.Age - b.Age });
