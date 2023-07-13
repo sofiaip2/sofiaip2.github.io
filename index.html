@@ -76,6 +76,7 @@
               console.log("here!");
               const dataFilter = data.filter(function(d) { return d.selectedGroup == "Very Frequently"})
               histogram(dataFilter)
+              myChart();
             }
 
             d3.select("#selectButton").on("change", function(event,d) {
