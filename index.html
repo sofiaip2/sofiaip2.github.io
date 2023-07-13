@@ -57,7 +57,7 @@
             var y = d3.scaleLinear().range([height, 0]);
             y.domain([0, d3.max(bins, function(d) { return d.length; })]);
             svg.append("g").call(d3.axisLeft(y));
-            svg.selectAll("rect").data(bins).enter().append("rect").attr("x",1).attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; }).attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; }).attr("height", function(d) {return height - y(d.length); }).style("fill", "#69b3a2)
+            svg.selectAll("rect").data(bins).enter().append("rect").attr("x",1).attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; }).attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; }).attr("height", function(d) {return height - y(d.length); }).style("fill", "#69b3a2")
           
           //g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale)).append("text").attr("y", height - 250).attr("x", width - 100).attr("text-anchor", "end").attr("stroke", "black").text("Age");
           //g.append("g").call(d3.axisLeft(yScale).tickFormat(function(d){return d;}).ticks(10)).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "-5.1em").attr("stroke", "black").text("Depression");
