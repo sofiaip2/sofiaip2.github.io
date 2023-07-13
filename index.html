@@ -58,6 +58,7 @@
             const allGroup = ["FrequencyClassical","FrequencyCountry","FrequencyEDM","FrequencyFolk","FrequencyGospel","FrequencyHipHop","FrequencyJazz","FrequencyKpop","FrequencyLatin","FrequencyLofi","FrequencyMetal","FrequencyPop","FrequencyR&B","FrequencyRap","FrequencyRock","FrequencyVideoGameMusic"]
             //d3.select("#selectButton").selectAll('myOptions').data(allGroup).enter().append('option').text(function(d) { return d; }).attr("value", function(d) { return d; })
             const mySelection = document.getElementById("selectButton");
+            console.log(mySelection);
             d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
             d3.select(mySelection).append("span").append("select").attr("id","selection").attr("name", "tasks").selectAll("option").data(allGroup).enter().append("option").attr("value",d=>d).text(d=>d);
 
