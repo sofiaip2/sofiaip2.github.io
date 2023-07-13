@@ -29,11 +29,11 @@
             if (selectedOption == "Classical") {
               //data.sort(function(a,b) { return a.Age - b.Age })
               data.filter(function(d) { return d.FrequencyClassical == "Very frequently" })
-              //d3.selectAll("svg > *").remove();
+              d3.selectAll("svg > *").remove();
               myChart();
             } else if (selectedOption == "Country") {
               data.filter(function(d) { return d.FrequencyCountry == "Very frequently" })
-              //d3.selectAll("svg > *").remove();
+              d3.selectAll("svg > *").remove();
               //data.sort(function(b,a) { return a.Age - b.Age })
               myChart();
             }
