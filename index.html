@@ -75,8 +75,7 @@
             function update(selectedGroup) {
               console.log("here!");
               const dataFilter = data.filter(function(d) { return d.selectedGroup == "Very Frequently"})
-              histogram(dataFilter)
-              myChart();
+              histogram.value(function(d) { return d.Age; }).domain(x.domain()).thresholds(x.ticks(100));
             }
 
             d3.select("#selectButton").on("change", function(event,d) {
