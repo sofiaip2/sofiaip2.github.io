@@ -13,7 +13,7 @@
     <p>Sofia Perry, UIUC CS 416 SU23</p>
     <div id="selectMe"></div>
     <div id="chartContainer"></div>
-    <div id="viz_container"></div>
+    <div id="my_dataviz"></div>
     <svg width = "900" height="500"></svg>
     <script>
         var data = d3.csv("scripts/mxmh_survey_results.csv");
@@ -48,19 +48,16 @@
           //xScale.domain(data.map(function(d) {return d.Age;}));
           //yScale.domain([0, d3.max(data, function(d) { return d3.count(data, d=>d.Age);})]);
 
-            var svg = d3.select("#viz_container").append("svg"), margin = 200, width = svg.attr("width") - margin, height = svg.attr("height") - margin
-            const xScale = d3.scaleLinear().domain([0,100]).range([0,width]);
-            svg.append('g').attr("transform",'translate(0, ${height})').call(d3.axisBottom(xScale).tickSize(0).tickPadding(8));
-            const yScale = d3.scaleLinear().range([height,0]);
-            const xAxis = svg.append('g')
-            const GridLine = () => d3.axisLeft().scale(yScale);
-            svg.append("g".attr("class", "grid").call(GridLine().tickSize(-width,0,0).tickFormat("").ticks(10));
-            const histogram = d3.bin().value(d=>d.Age).domain(xScale.domain()).thresholds(xScale.ticks(20));
-            const bins = histogram(data)
-            yScale.domain([0,100]);
-            yAxis.call(d3.axisLeft(yScale).tickSize(0).tickPadding(4)).call(d=>d.select(".domain").remove());
-            svg.selectAll("rect").data(bins).join("rect").attr("class","bar").attr("x",1).attr("transform", d => `translate(${xScale(d.x0)}, ${yScale(d.length)})`).attr("width,d=>'translate(${xScale(d.x1)},${yScale(d.x0)-1).attr("height",d=>height - yScale(d.length));
-
+            var margin = {top: 30, right: 30, bottom: 70, left: 60}, width = 460-margin.left-margin.right, height=400-margin.top-margin.bottom;
+            var svg = d3.select("#my_dataviz").append("svg').attr("width", width+margin.left+margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");
+            var x = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age }).range([0,width]);
+            svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
+            var histogram = d3.histogram().value(function(d) { return d.Age; }).domain(x.domain()).thresholds(x.ticks(100));
+            var binds = histogram(data);
+            var y = d3.scaleLinear().range([height, 0]);
+            y.domain([0, d3.max(bins, function(d) { return d.length; })]);
+            svg.append("g").call(d3.axisLeft(y));
+            svg.selectAll("rect").data(bins).enter().append("rect").attr("x",1).attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; }).attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; }).attr("height", function(d) {return height - y(d.length); }).style("fill", "#69b3a2)
           
           //g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale)).append("text").attr("y", height - 250).attr("x", width - 100).attr("text-anchor", "end").attr("stroke", "black").text("Age");
           //g.append("g").call(d3.axisLeft(yScale).tickFormat(function(d){return d;}).ticks(10)).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "-5.1em").attr("stroke", "black").text("Depression");
