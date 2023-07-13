@@ -84,7 +84,8 @@
             }
 
             d3.select("#selectButton").on("change", function(event,d) {
-              const selectedOption = d3.select(this).property("value")
+              const selectedOption = d3.select(this).node().value;
+              console.log(selectedOption);
               update(selectedOption)
             })
       
