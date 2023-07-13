@@ -14,7 +14,7 @@
     <div id="selectMe"></div>
     <div id="chartContainer"></div>
     <div id="my_dataviz"></div>
-    <svg width = "900" height="500"></svg>
+    <svg width = "600" height="500"></svg>
     <script>
         var data = d3.csv("scripts/mxmh_survey_results.csv");
         data.then(function (data) {
@@ -48,7 +48,7 @@
           //xScale.domain(data.map(function(d) {return d.Age;}));
           //yScale.domain([0, d3.max(data, function(d) { return d3.count(data, d=>d.Age);})]);
 
-            var margin = {top: 200, right: 200, bottom: 200, left: 200}, width = 900-margin.left-margin.right, height=500-margin.top-margin.bottom;
+            var margin = {top: 100, right: 100, bottom: 100, left: 100}, width = 900-margin.left-margin.right, height=500-margin.top-margin.bottom;
             var svg = d3.select("#my_dataviz").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            var x = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })]).range([0,width]);
             svg.append("text").attr("transform", "translate(100,0)").attr("x",50).attr("y",50).attr("font-size", "24px").text("Age Distribution")
             svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
