@@ -23,17 +23,16 @@
           d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
           const selectItems = ["Ascending", "Descending"];
           d3.select(mySelection).append("span").append("select").attr("id","selection").attr("name", "tasks").selectAll("option").data(selectItems).enter().append("option").attr("value",d=>d).text(d=>d);
-          myChart();
           //document.addEventListener("DOMContentLoaded", myChart());
           d3.select("#selection").on("change", function() {
             const selectedOption = d3.select(this).node().value;
             if (selectedOption == "Ascending") {
               data.sort(function(a,b) { return a.Age - b.Age })
-              d3.selectAll("svg > *").remove();
+              //d3.selectAll("svg > *").remove();
               myChart();
             } else if (selectedOption == "Descending") {
               d3.selectAll("svg > *").remove();
-              data.sort(function(b,a) { return a.Age - b.Age })
+              //data.sort(function(b,a) { return a.Age - b.Age })
               myChart();
             }
           });
@@ -49,7 +48,8 @@
           //yScale.domain([0, d3.max(data, function(d) { return d3.count(data, d=>d.Age);})]);
 
             var margin = {top: 100, right: 100, bottom: 100, left: 100}, width = 900-margin.left-margin.right, height=500-margin.top-margin.bottom;
-            var svg = d3.select("#my_dataviz").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            var x = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })]).range([0,width]);
+            var svg = d3.select("#my_dataviz").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+            var x = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })]).range([0,width]);
             svg.append("text").attr("transform", "translate(100,0)").attr("x",50).attr("y",50).attr("font-size", "24px").text("Age Distribution")
             svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
             var histogram = d3.histogram().value(function(d) { return d.Age; }).domain(x.domain()).thresholds(x.ticks(100));
