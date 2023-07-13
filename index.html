@@ -75,7 +75,7 @@
             function update(selectedGroup) {
               console.log("here!");
               const dataFilter = data.filter(function(d) { return d.selectedGroup == "Very Frequently"})
-              histogram.data(dataFilter)
+              histogram(dataFilter)
             }
 
             d3.select("#selectButton").on("change", function(event,d) {
