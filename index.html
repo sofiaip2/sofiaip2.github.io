@@ -61,7 +61,6 @@
             d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
             d3.select(mySelection).append("span").append("select").attr("id","selection").attr("name", "tasks").selectAll("option").data(allGroup).enter().append("option").attr("value",d=>d).text(d=>d);
 
-            
             var x = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })]).range([0,width]);
             svg.append("text").attr("transform", "translate(100,0)").attr("x",50).attr("y",50).attr("font-size", "24px").text("Age Distribution")
             svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
@@ -74,6 +73,7 @@
 
       
             function update(selectedGroup) {
+              console.log("here!");
               const dataFilter = data.filter(function(d) { return d.selectedGroup == "Very Frequently"})
               histogram.data(dataFilter)
             }
