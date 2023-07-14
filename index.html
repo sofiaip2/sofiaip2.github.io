@@ -33,9 +33,17 @@
             console.log(selectedOption);
             if (selectedOption == "Classical") {
               //data.sort(function(a,b) { return a.Age - b.Age })
-              data.filter(function(d) { return d.FrequencyClassical == "Very frequently" })
+              //data.filter(function(d) { return d.FrequencyClassical == "Very frequently" })
               //d3.selectAll("svg > *").remove();
-              myChart(data);
+              var filteredData = data.filter(function(d)
+                                             {
+                                               if(d["FrequencyClassical"] == "Very frequently" })
+                                               {
+                                                 return d
+                                               }
+                                             })
+              console.log(filteredData)
+              myChart(filteredData)
             } else if (selectedOption == "Country") {
               console.log("here!")
               //data.filter(function(d) { return d["FrequencyCountry"] == "Very frequently" })
