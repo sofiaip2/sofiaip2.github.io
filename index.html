@@ -21,7 +21,7 @@
 
         var data = d3.csv("scripts/mxmh_survey_results.csv");
         data.then(function (data) {
-          myChart();
+          myChart(data);
           const mySelection = document.getElementById("selectMe");
           d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
           const selectItems = ["Classical", "Country"];
@@ -34,7 +34,7 @@
               //data.sort(function(a,b) { return a.Age - b.Age })
               data.filter(function(d) { return d.FrequencyClassical == "Very frequently" })
               //d3.selectAll("svg > *").remove();
-              myChart();
+              myChart(data);
             } else if (selectedOption == "Country") {
               console.log("here!");
               //data.filter(function(d) { return d["FrequencyCountry"] == "Very frequently" })
