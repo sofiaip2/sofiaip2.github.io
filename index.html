@@ -21,7 +21,7 @@
 
         var data = d3.csv("scripts/mxmh_survey_results.csv");
         data.then(function (data) {
-          //myChart(data);
+          myChart(data);
           
           const mySelection = document.getElementById("selectMe");
           d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
@@ -73,12 +73,9 @@
             var y = d3.scaleLinear().range([height, 0]);
             y.domain([0, d3.max(bins, function(d) { return d.length; })]);
             svg.append("g").call(d3.axisLeft(y));
-            svg.selectAll("rect").data(bins).enter().append("rect").attr("x",1).attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; }).attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; }).attr("height", function(d) {return height - y(d.length); }).style("fill", "#69b3a2")
-            
-          //g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale)).append("text").attr("y", height - 250).attr("x", width - 100).attr("text-anchor", "end").attr("stroke", "black").text("Age");
-          //g.append("g").call(d3.axisLeft(yScale).tickFormat(function(d){return d;}).ticks(10)).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "-5.1em").attr("stroke", "black").text("Depression");
-          //g.selectAll(".bar").data(data).enter().append("rect").attr("class", "bar").attr("x", function(d) { return xScale(d.Age);}).attr("y", function(d) { return yScale(d3.count(data, d=>d.Age));}).attr("width", xScale.bandwidth()).attr("height", function(d) { return height - yScale(d3.count(data, d=>d.Age)); });
-        
+            svg.selectAll("rect").data(bins).join("rect").attr("class","bar").attr("x",1).attr("transform", d=> 'translate(${xScale(d.x0)}, ${yScale(d.length)})`.attr("width",d=>xScale(d.x1) - xScale(d.x0-1).attr("height",d=>height-yScale(d.length)).style("fill","#0072BC")
+            //svg.selectAll("rect").data(bins).enter().append("rect").attr("x",1).attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; }).attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; }).attr("height", function(d) {return height - y(d.length); }).style("fill", "#69b3a2")
+                    
           };
         });      
     </script>
