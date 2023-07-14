@@ -21,7 +21,7 @@
 
         var allData = d3.csv("scripts/mxmh_survey_results.csv");
         allData.then(function (allData) {
-          //myChart(allData);
+          myChart(allData);
           
           const mySelection = document.getElementById("selectMe");
           d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
