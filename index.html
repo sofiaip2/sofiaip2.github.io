@@ -191,7 +191,7 @@
             };
 
             const mousemove = function(event,d) {
-              tooltip.html(`<b>Number of people</b>: ${d.length}`)
+              tooltip.html(`<b>Number of people</b>: ${function(d) {return d.length}}`)
               .style("top", event.pageY - 10 + "px").style("left", event.pageX + 10 + "px")
             };
 
