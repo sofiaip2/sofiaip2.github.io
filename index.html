@@ -182,7 +182,7 @@
           //data.sort(function(b,a) { return a.Age - b.Age });
           //myChart();
           function myChart(data) {
-            svg.selectAll("axis").remove();
+            svg.selectAll("g").remove();
             var xScale = d3.scaleLinear()
               .domain([0, d3.max(data, function(d) { return d.Age; })])
               .range([0,width]);
