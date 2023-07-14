@@ -21,7 +21,7 @@
 
         var allData = d3.csv("scripts/mxmh_survey_results.csv");
         allData.then(function (allData) {
-          myChart(allData);
+          //myChart(allData);
           
           const mySelection = document.getElementById("selectMe");
           d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
@@ -31,7 +31,7 @@
           d3.select("#selection").on("change", function() {
             const selectedOption = d3.select(this).node().value;
             if (selectedOption == "Classical") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                              {
                                                if(d["FrequencyClassical"] == "Very frequently")
                                                {
@@ -40,7 +40,7 @@
                                              })
               myChart(filteredData)
             } else if (selectedOption == "Country") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyCountry"] == "Very frequently")
                                                    {
@@ -49,7 +49,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "EDM") {
-              var filteredData = data.filter(function(d)
+              var filteredData =allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyEDM"] == "Very frequently")
                                                    {
@@ -58,7 +58,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Folk") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyFolk"] == "Very frequently")
                                                    {
@@ -67,7 +67,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Gospel") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyGospel"] == "Very frequently")
                                                    {
@@ -76,7 +76,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Hip Hop") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyHipHop"] == "Very frequently")
                                                    {
@@ -85,7 +85,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Jazz") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyJazz"] == "Very frequently")
                                                    {
@@ -94,7 +94,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "K pop") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyKpop"] == "Very frequently")
                                                    {
@@ -103,7 +103,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Latin") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyLatin"] == "Very frequently")
                                                    {
@@ -112,7 +112,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Lofi") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyLofi"] == "Very frequently")
                                                    {
@@ -121,7 +121,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Metal") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyMetal"] == "Very frequently")
                                                    {
@@ -130,7 +130,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Pop") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyPop"] == "Very frequently")
                                                    {
@@ -139,7 +139,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "R&B") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyR&B"] == "Very frequently")
                                                    {
@@ -148,7 +148,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Rap") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyRap"] == "Very frequently")
                                                    {
@@ -157,7 +157,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Rock") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyRock"] == "Very frequently")
                                                    {
@@ -166,7 +166,7 @@
                                                  })
               myChart(filteredData)
             } else if (selectedOption == "Video Game Music") {
-              var filteredData = data.filter(function(d)
+              var filteredData = allData.filter(function(d)
                                                  {
                                                    if(d["FrequencyVideoGameMusic"] == "Very frequently")
                                                    {
