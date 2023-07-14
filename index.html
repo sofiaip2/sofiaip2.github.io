@@ -203,7 +203,7 @@
             var xScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })])
               .range([0,width]);
             svg.append("text")
-              .attr("transform", "translate(100,100)")
+              .attr("transform", "translate(100,50)")
               .attr("xScale",100).attr("yScale",100)
               .attr("font-size", "24px")
               .text("Age Distribution")
