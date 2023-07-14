@@ -75,7 +75,7 @@
               .text("Age Distribution")
             svg.append("g")
               .attr("transform", "translate(0," + height + ")")
-              .call(d3.axisBottom(x));
+              .call(d3.axisBottom(xScale));
             var histogram = d3.histogram()
               .value(function(d) { return d.Age; })
               .domain(xScale.domain()).thresholds(xScale.ticks(100));
