@@ -97,11 +97,14 @@
           
           //data.sort(function(b,a) { return a.Age - b.Age });
           //myChart();
-          
           function myChart(data) {
+            createChart(data, chart1, Age)
+            createChart(data, chart2, Age)
+          }
+          
+          function createChart(data, chartNumber, xVar) {
                           
-            chart1.selectAll("g").remove();
-            chart2.selectAll("g").remove();
+            chartNumber.selectAll("g").remove();
             
             const tooltip = d3.select("body").append("div").attr("class", "tooltip").attr("style", "position: absolute; opacity: 1;");
             const mouseover = function(d) {
@@ -119,22 +122,17 @@
               d3.select(this).style("stroke", "none").style("opacity",1)
             };
                         
-            var xScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })])
+            var xScale1 = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.xVar; })])
               .range([0,width]);
-            chart1.append("text").attr("transform", "translate(150,50)")
+            chartNumber.append("text").attr("transform", "translate(150,50)")
               .attr("xScale",50).attr("yScale",50).attr("font-size", "24px")
-              .text("Age Distribution")
-            chart2.append("text").attr("transform", "translate(150,50)")
-              .attr("xScale",50).attr("yScale",50).attr("font-size", "24px")
-              .text("Depression Distribution")
+              .text( xVar + " Distribution")
             
             
-            chart1.append("g").attr("transform", "translate(0," + height + ")")  
-              .call(d3.axisBottom(xScale));
-            chart2.append("g").attr("transform", "translate(0," + height + ")")  
+            chartNumber.append("g").attr("transform", "translate(0," + height + ")")  
               .call(d3.axisBottom(xScale));
             
-            var histogram = d3.histogram().value(function(d) { return d.Age; })
+            var histogram = d3.histogram().value(function(d) { return d.xVar; })
               .domain(xScale.domain()).thresholds(xScale.ticks(100));
             
             var bins = histogram(data);
@@ -143,18 +141,9 @@
             
             yScale.domain([0, d3.max(bins, function(d) { return d.length; })]);
             
-            chart1.append("g").call(d3.axisLeft(yScale));
-            chart2.append("g").call(d3.axisLeft(yScale));
+            chartNumber.append("g").call(d3.axisLeft(yScale));
             
-            chart1.selectAll("rect").data(bins).join("rect").attr("class", "bar").attr("x",1)
-              .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
-                .attr("width",d=>xScale(d.x1) - xScale(d.x0)-1)
-                .attr("height",d=>height-yScale(d.length))
-                .style("fill","#0072BC")
-              .on("mouseover", mouseover)
-              .on("mousemove", mousemove)
-              .on("mouseleave", mouseleave);
-             chart2.selectAll("rect").data(bins).join("rect").attr("class", "bar").attr("x",1)
+            chartNumber.selectAll("rect").data(bins).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
                 .attr("width",d=>xScale(d.x1) - xScale(d.x0)-1)
                 .attr("height",d=>height-yScale(d.length))
@@ -163,13 +152,9 @@
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
 
-            chart1.append("text").attr("class", "chart-label").attr("x", width/2)
-              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Age");
-            chart1.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
-              .attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
-            chart2.append("text").attr("class", "chart-label").attr("x", width/2)
-              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Age");
-            chart2.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
+            chartNumber.append("text").attr("class", "chart-label").attr("x", width/2)
+              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text(xVar);
+            chartNumber.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
               .attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
           };
         });      
