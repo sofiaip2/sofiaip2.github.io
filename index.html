@@ -154,17 +154,17 @@
             chart2.append("g").call(d3.axisLeft(yScale2));
             
             chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
-              .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
-                .attr("width",d=>xScale(d.x1) - xScale1(d.x0)-1)
-                .attr("height",d=>height-yScale(d.length))
+              .attr("transform", d=> `translate(${xScale1(d.x0)}, ${yScale1(d.length)})`)
+                .attr("width",d=>xScale1(d.x1) - xScale1(d.x0)-1)
+                .attr("height",d=>height-yScale1(d.length))
                 .style("fill","#0072BC")
               .on("mouseover", mouseover)
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
              chart2.selectAll("rect").data(bins2).join("rect").attr("class", "bar").attr("x",1)
-              .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
-                .attr("width",d=>xScale(d.x1) - xScale(d.x0)-1)
-                .attr("height",d=>height-yScale(d.length))
+              .attr("transform", d=> `translate(${xScale2(d.x0)}, ${yScale2(d.length)})`)
+                .attr("width",d=>xScale2(d.x1) - xScal2e(d.x0)-1)
+                .attr("height",d=>height-yScale2(d.length))
                 .style("fill","#0072BC")
               .on("mouseover", mouseover)
               .on("mousemove", mousemove)
