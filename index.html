@@ -49,13 +49,7 @@
                                              })
               myChart(filteredData)
             } else if (selectedOption == "Country") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyCountry"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyCountry"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "EDM") {
               var filteredData =allData.filter(function(d)
