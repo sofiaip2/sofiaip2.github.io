@@ -21,13 +21,16 @@
     <h1>Investigating Correlations Between Music and Mental Health</h1>
     <p>Sofia Perry, UIUC CS 416 SU23</p>
     <div id="selectMe"></div>
-    <div id="chartContainer"></div>
-    <div id="my_dataviz"></div>
+    <div id="area1"></div>
+    <div id="area2"></div>
     <svg width = "600" height="500"></svg>
     <script>
         var margin = {top: 100, right: 100, bottom: 100, left: 100}, width = 900-margin.left-margin.right, height=500-margin.top-margin.bottom;
-        var svg = d3.select("#my_dataviz").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        //var svg = d3.select("#my_dataviz").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart1 = d3.select("#area1").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart2 = d3.select("#area2").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
 
+      
         var allData = d3.csv("scripts/mxmh_survey_results.csv");
         allData.then(function (allData) {
           myChart(allData);
@@ -96,6 +99,7 @@
           //myChart();
           
           function myChart(data) {
+                          
             svg.selectAll("g").remove();
             
             const tooltip = d3.select("body").append("div").attr("class", "tooltip").attr("style", "position: absolute; opacity: 1;");
@@ -116,11 +120,17 @@
                         
             var xScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })])
               .range([0,width]);
-            svg.append("text").attr("transform", "translate(150,50)")
+            chart1.append("text").attr("transform", "translate(150,50)")
               .attr("xScale",50).attr("yScale",50).attr("font-size", "24px")
               .text("Age Distribution")
+            chart2.append("text").attr("transform", "translate(150,50)")
+              .attr("xScale",50).attr("yScale",50).attr("font-size", "24px")
+              .text("Depression Distribution")
             
-            svg.append("g").attr("transform", "translate(0," + height + ")")  
+            
+            chart1.append("g").attr("transform", "translate(0," + height + ")")  
+              .call(d3.axisBottom(xScale));
+            chart2.append("g").attr("transform", "translate(0," + height + ")")  
               .call(d3.axisBottom(xScale));
             
             var histogram = d3.histogram().value(function(d) { return d.Age; })
@@ -132,9 +142,18 @@
             
             yScale.domain([0, d3.max(bins, function(d) { return d.length; })]);
             
-            svg.append("g").call(d3.axisLeft(yScale));
+            chart1.append("g").call(d3.axisLeft(yScale));
+            chart2.append("g").call(d3.axisLeft(yScale));
             
-            svg.selectAll("rect").data(bins).join("rect").attr("class", "bar").attr("x",1)
+            chart1.selectAll("rect").data(bins).join("rect").attr("class", "bar").attr("x",1)
+              .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
+                .attr("width",d=>xScale(d.x1) - xScale(d.x0)-1)
+                .attr("height",d=>height-yScale(d.length))
+                .style("fill","#0072BC")
+              .on("mouseover", mouseover)
+              .on("mousemove", mousemove)
+              .on("mouseleave", mouseleave);
+             chart2.selectAll("rect").data(bins).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
                 .attr("width",d=>xScale(d.x1) - xScale(d.x0)-1)
                 .attr("height",d=>height-yScale(d.length))
@@ -143,9 +162,13 @@
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
 
-            svg.append("text").attr("class", "chart-label").attr("x", width/2)
+            chart1.append("text").attr("class", "chart-label").attr("x", width/2)
               .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Age");
-            svg.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
+            chart1.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
+              .attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
+            chart2.append("text").attr("class", "chart-label").attr("x", width/2)
+              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Age");
+            chart2.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
               .attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
           };
         });      
