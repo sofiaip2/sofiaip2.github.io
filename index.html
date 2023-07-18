@@ -100,7 +100,8 @@
           
           function myChart(data) {
                           
-            svg.selectAll("g").remove();
+            chart1.selectAll("g").remove();
+            chart2.selectAll("g").remove();
             
             const tooltip = d3.select("body").append("div").attr("class", "tooltip").attr("style", "position: absolute; opacity: 1;");
             const mouseover = function(d) {
