@@ -184,9 +184,9 @@
           function myChart(data) {
             svg.selectAll("g").remove();
             
-            //const tooltip = d3.select("body").append("div").attr("class", "tooltip");
-            var tooltip = d3.select("body").append("div").style("position", "absolute").style("z-index", "10")
-              .style("visibility", "hidden").style("background", "#000").text("Number of people:");
+            const tooltip = d3.select("body").append("div").attr("class", "tooltip");
+            //var tooltip = d3.select("body").append("div").style("position", "absolute").style("z-index", "10")
+              //.style("visibility", "hidden").style("background", "#000").text("Number of people:");
             const mouseover = function(d) {
               tooltip.style("opacity",1)
               d3.select(this).style("stroke", "#EF4A60").style("opacity", .5)
