@@ -193,7 +193,7 @@
           function myChart(data) {
             svg.selectAll("g").remove();
             
-            const tooltip = d3.select("body").append("div").attr("class", "tooltip");
+            const tooltip = d3.select("body").append("div").attr("class", "tooltip").attr("style", "position: abolsute; opacity: 1;");
             //var tooltip = d3.select("body").append("div").style("position", "absolute").style("z-index", "10")
               //.style("visibility", "hidden").style("background", "#000").text("Number of people:");
             const mouseover = function(d) {
