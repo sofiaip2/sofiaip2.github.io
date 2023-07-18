@@ -97,6 +97,7 @@
           
           function myChart(data) {
             xVarAge = function(d) { d.Age; }
+            console.log(xVarAge);
             createChart(data, chart1, xVarAge, "Age")
             createChart(data, chart2, function (d) { d.Depression; }, "Depression")
           }
