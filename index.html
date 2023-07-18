@@ -139,7 +139,8 @@
             var histogram2 = d3.histogram().value(function(d) {return d.Depression; })
               .domain(xScale2.domain()).thresholds(xScale2.ticks(100));
             
-            var bins = histogram(data);
+            var bins1=histogram1(data);
+            var bins2=histogram2(data);
             
             var yScale = d3.scaleLinear().range([height, 0]);
             
@@ -148,7 +149,7 @@
             chart1.append("g").call(d3.axisLeft(yScale));
             chart2.append("g").call(d3.axisLeft(yScale));
             
-            chart1.selectAll("rect").data(bins).join("rect").attr("class", "bar").attr("x",1)
+            chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
                 .attr("width",d=>xScale(d.x1) - xScale1(d.x0)-1)
                 .attr("height",d=>height-yScale(d.length))
@@ -156,7 +157,7 @@
               .on("mouseover", mouseover)
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
-             chart2.selectAll("rect").data(bins).join("rect").attr("class", "bar").attr("x",1)
+             chart2.selectAll("rect").data(bins2).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
                 .attr("width",d=>xScale(d.x1) - xScale(d.x0)-1)
                 .attr("height",d=>height-yScale(d.length))
