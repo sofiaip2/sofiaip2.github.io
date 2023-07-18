@@ -40,142 +40,52 @@
           d3.select("#selection").on("change", function() {
             const selectedOption = d3.select(this).node().value;
             if (selectedOption == "Classical") {
-              var filteredData = allData.filter(function(d)
-                                             {
-                                               if(d["FrequencyClassical"] == "Very frequently")
-                                               {
-                                                 return d
-                                               }
-                                             })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyClassical"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Country") {
               var filteredData = allData.filter(function(d) { if(d["FrequencyCountry"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "EDM") {
-              var filteredData =allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyEDM"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData =allData.filter(function(d) { if(d["FrequencyEDM"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Folk") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyFolk"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyFolk"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Gospel") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyGospel"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyGospel"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Hip Hop") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyHipHop"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyHipHop"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Jazz") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyJazz"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyJazz"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "K pop") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyKpop"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyKpop"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Latin") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyLatin"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyLatin"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Lofi") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyLofi"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyLofi"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Metal") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyMetal"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyMetal"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Pop") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyPop"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyPop"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "R&B") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyR&B"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyR&B"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Rap") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyRap"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyRap"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Rock") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyRock"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyRock"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "Video Game Music") {
-              var filteredData = allData.filter(function(d)
-                                                 {
-                                                   if(d["FrequencyVideoGameMusic"] == "Very frequently")
-                                                   {
-                                                     return d
-                                                   }
-                                                 })
+              var filteredData = allData.filter(function(d) { if(d["FrequencyVideoGameMusic"] == "Very frequently") { return d } })
               myChart(filteredData)
             } else if (selectedOption == "All Genres") {               
               myChart(allData)
