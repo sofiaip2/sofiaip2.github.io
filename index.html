@@ -183,7 +183,7 @@
           //myChart();
           function myChart(data) {
             svg.selectAll("g").remove();
-            
+            /*
             const tooltip = d3.select("body").append("div").attr("class", "tooltip");
             //var tooltip = d3.select("body").append("div").style("position", "absolute").style("z-index", "10")
               //.style("visibility", "hidden").style("background", "#000").text("Number of people:");
@@ -201,6 +201,9 @@
               tooltip.style("opacity", 0)
               d3.select(this).style("stroke", "none").style("opacity",1)
             };
+            */
+
+            var tooltip = d3.select("body").append("div").style("position", "absolute").style("visibility", "hidden").text("TEXT!");
             
             var xScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })])
               .range([0,width]);
@@ -220,9 +223,14 @@
                 .attr("width",d=>xScale(d.x1) - xScale(d.x0)-1)
                 .attr("height",d=>height-yScale(d.length))
                 .style("fill","#0072BC")
-              .on("mouseover", mouseover)
-              .on("mousemove", mousemove)
-              .on("mouseleave", mouseleave);
+                .on("mouseover", function(){return tooltip.style("visibility", "visible");})
+                .on("mousemove", function(){return tooltip.style("top", (event.pageY-800)+"px").style("left",(event.pageX-800)+"px");})
+                .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+              //.on("mouseover", mouseover)
+              //.on("mousemove", mousemove)
+              //.on("mouseleave", mouseleave);
+
+    
 
             svg.append("text").attr("class", "chart-label").attr("x", width/2)
               .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Age");
