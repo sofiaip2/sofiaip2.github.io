@@ -190,12 +190,8 @@
           
           //data.sort(function(b,a) { return a.Age - b.Age });
           //myChart();
-          function myChart(data) {
-            ageChart(data);
-            depressionChart(data);
-          }
           
-          function ageChart(data) {
+          function myChart(data) {
             svg.selectAll("g").remove();
             
             const tooltip = d3.select("body").append("div").attr("class", "tooltip").attr("style", "position: absolute; opacity: 1;");
@@ -248,63 +244,6 @@
             svg.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
               .attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
           };
-
-          
-          function depressionChart(data) {
-            svg.selectAll("g").remove();
-            const tooltip = d3.select("body").append("div").attr("class", "tooltip").attr("style", "position: absolute; opacity: 1;");
-            const mouseover = function(d) {
-              tooltip.style("opacity",1)
-              d3.select(this).style("stroke", "#EF4A60").style("opacity", .5)
-            };
-
-            const mousemove = function(event,d) {
-              tooltip.html(`<b>Number of people</b>: ${d.length}`)
-                .style("top", event.pageY - 10 + "px").style("left", event.pageX + 10 + "px")
-            };
-
-            const mouseleave = function(d) {
-              tooltip.style("opacity", 0)
-              d3.select(this).style("stroke", "none").style("opacity",1)
-            };
-          
-          var xScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Depression; })])
-              .range([0,width]);
-          
-          svg.append("text").attr("transform", "translate(150,50)")
-              .attr("xScale",50).attr("yScale",50).attr("font-size", "24px")
-              .text("Age Distribution")
-          
-          svg.append("g").attr("transform", "translate(0," + height + ")")  
-            .call(d3.axisBottom(xScale));
-            
-          var histogram = d3.histogram().value(function(d) { return d.Age; })
-            .domain(xScale.domain()).thresholds(xScale.ticks(100));
-
-          var bins = histogram(data);
-            
-          var yScale = d3.scaleLinear().range([height, 0]);
-            
-          yScale.domain([0, d3.max(bins, function(d) { return d.length; })]);
-            
-          svg.append("g").call(d3.axisLeft(yScale));
-          
-          svg.selectAll("rect").data(bins).join("rect").attr("class", "bar").attr("x",1)
-              .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
-              .attr("width",d=>xScale(d.x1) - xScale(d.x0)-1)
-              .attr("height",d=>height-yScale(d.length))
-             .style("fill","#0072BC")
-           .on("mouseover", mouseover)
-           .on("mousemove", mousemove)
-           .on("mouseleave", mouseleave);
-
-            svg.append("text").attr("class", "chart-label").attr("x", width/2)
-              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Depression");
-            svg.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
-              .attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
-          };
-
-      
         });      
     </script>
   </body>
