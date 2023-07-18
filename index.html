@@ -95,11 +95,9 @@
             }
           }); 
           
-          //data.sort(function(b,a) { return a.Age - b.Age });
-          //myChart();
           function myChart(data) {
-            createChart(data, chart1, "Age")
-            createChart(data, chart2, "Depression")
+            createChart(data, chart1, Age)
+            createChart(data, chart2, Depression)
           }
           
           function createChart(data, chartNumber, xVar) {
@@ -126,7 +124,7 @@
               .range([0,width]);
             chartNumber.append("text").attr("transform", "translate(150,50)")
               .attr("xScale",50).attr("yScale",50).attr("font-size", "24px")
-              .text( xVar + " Distribution")
+              .text( "xVar" + " Distribution")
             
             
             chartNumber.append("g").attr("transform", "translate(0," + height + ")")  
@@ -153,7 +151,7 @@
               .on("mouseleave", mouseleave);
 
             chartNumber.append("text").attr("class", "chart-label").attr("x", width/2)
-              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text(xVar);
+              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("xVar");
             chartNumber.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
               .attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
           };
