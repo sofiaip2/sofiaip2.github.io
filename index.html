@@ -96,8 +96,9 @@
           }); 
           
           function myChart(data) {
-            createChart(data, chart1, function (data) { d.Age; }, "Age")
-            createChart(data, chart2, function (data) { d.Depression; }, "Depression")
+            xVarAge = function(d) { d.Age; }
+            createChart(data, chart1, xVarAge, "Age")
+            createChart(data, chart2, function (d) { d.Depression; }, "Depression")
           }
           
           function createChart(data, chartNumber, xVar, text) {
