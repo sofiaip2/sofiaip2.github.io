@@ -116,23 +116,28 @@
               d3.select(this).style("stroke", "none").style("opacity",1)
             };
                         
-            var xScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })])
+            var xScale1 = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })])
               .range([0,width]);
+            var xScale2 = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Depression; })])
+              range([0,width]);
+
             chart1.append("text").attr("transform", "translate(150,50)")
-              .attr("xScale",50).attr("yScale",50).attr("font-size", "24px")
+              .attr("xScale1",50).attr("yScale",50).attr("font-size", "24px")
               .text("Age Distribution")
             chart2.append("text").attr("transform", "translate(150,50)")
-              .attr("xScale",50).attr("yScale",50).attr("font-size", "24px")
+              .attr("xScale2",50).attr("yScale",50).attr("font-size", "24px")
               .text("Depression Distribution")
             
             
             chart1.append("g").attr("transform", "translate(0," + height + ")")  
-              .call(d3.axisBottom(xScale));
+              .call(d3.axisBottom(xScale1));
             chart2.append("g").attr("transform", "translate(0," + height + ")")  
-              .call(d3.axisBottom(xScale));
+              .call(d3.axisBottom(xScale2));
             
-            var histogram = d3.histogram().value(function(d) { return d.Age; })
-              .domain(xScale.domain()).thresholds(xScale.ticks(100));
+            var histogram1 = d3.histogram().value(function(d) { return d.Age; })
+              .domain(xScale1.domain()).thresholds(xScale1.ticks(100));
+            var histogram2 = d3.histogram().value(function(d) {return d.Depression; })
+              .domain(xScale2.domain()).thresholds(xScale2.ticks(100));
             
             var bins = histogram(data);
             
@@ -145,7 +150,7 @@
             
             chart1.selectAll("rect").data(bins).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
-                .attr("width",d=>xScale(d.x1) - xScale(d.x0)-1)
+                .attr("width",d=>xScale(d.x1) - xScale1(d.x0)-1)
                 .attr("height",d=>height-yScale(d.length))
                 .style("fill","#0072BC")
               .on("mouseover", mouseover)
@@ -165,7 +170,7 @@
             chart1.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
               .attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
             chart2.append("text").attr("class", "chart-label").attr("x", width/2)
-              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Age");
+              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Depression");
             chart2.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
               .attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
           };
