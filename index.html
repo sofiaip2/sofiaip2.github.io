@@ -184,7 +184,9 @@
           function myChart(data) {
             svg.selectAll("g").remove();
             
-            const tooltip = d3.select("body").append("div").attr("class", "tooltip");
+            //const tooltip = d3.select("body").append("div").attr("class", "tooltip");
+            var tooltip = d3.select("body").append("div").style("position", "absolute").style("z-index", "10")
+              .style("visibility", "hidden").style("background", "#000").text("Number of people:");
             const mouseover = function(d) {
               tooltip.style("opacity",1)
               d3.select(this).style("stroke", "#EF4A60").style("opacity", .5)
@@ -192,7 +194,7 @@
 
             const mousemove = function(event,d) {
               tooltip.html(`<b>Number of people</b>: ${d.length}`)
-              .style("top", event.pageY - 10 + "px").style("left", event.pageX + 10 + "px")
+                .style("top", event.pageY - 10 + "px").style("left", event.pageX + 10 + "px")
             };
 
             const mouseleave = function(d) {
