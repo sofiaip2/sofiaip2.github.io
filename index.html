@@ -96,11 +96,11 @@
           }); 
           
           function myChart(data) {
-            createChart(data, chart1, function (d) { d.Age; })
-            createChart(data, chart2, d.Depression)
+            createChart(data, chart1, function (d) { d.Age; }, "Age")
+            createChart(data, chart2, function (d) { d.Depression; }, "Depression")
           }
           
-          function createChart(data, chartNumber, xVar) {
+          function createChart(data, chartNumber, xVar, text) {
                           
             chartNumber.selectAll("g").remove();
             
@@ -120,17 +120,17 @@
               d3.select(this).style("stroke", "none").style("opacity",1)
             };
                         
-            var xScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.xVar; })])
+            var xScale = d3.scaleLinear().domain([0, d3.max(data, xVar)])
               .range([0,width]);
             chartNumber.append("text").attr("transform", "translate(150,50)")
               .attr("xScale",50).attr("yScale",50).attr("font-size", "24px")
-              .text( "xVar" + " Distribution")
+              .text( text + " Distribution")
             
             
             chartNumber.append("g").attr("transform", "translate(0," + height + ")")  
               .call(d3.axisBottom(xScale));
             
-            var histogram = d3.histogram().value(function(d) { return d.xVar; })
+            var histogram = d3.histogram().value(xVar)
               .domain(xScale.domain()).thresholds(xScale.ticks(100));
             
             var bins = histogram(data);
@@ -151,7 +151,7 @@
               .on("mouseleave", mouseleave);
 
             chartNumber.append("text").attr("class", "chart-label").attr("x", width/2)
-              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("xVar");
+              .attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text(text);
             chartNumber.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4)
               .attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
           };
