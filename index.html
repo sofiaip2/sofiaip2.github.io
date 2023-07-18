@@ -142,12 +142,16 @@
             var bins1=histogram1(data);
             var bins2=histogram2(data);
             
-            var yScale = d3.scaleLinear().range([height, 0]);
+            var yScale1 = d3.scaleLinear().range([height, 0]);
+            var yScale2 = d3.scaleLinear().range([height, 0]);
+
             
-            yScale.domain([0, d3.max(bins, function(d) { return d.length; })]);
+            yScale1.domain([0, d3.max(bins1, function(d) { return d.length; })]);
+            yScale2.domain([0, d3.max(bins2, function(d) { return d.length; })]);
+
             
-            chart1.append("g").call(d3.axisLeft(yScale));
-            chart2.append("g").call(d3.axisLeft(yScale));
+            chart1.append("g").call(d3.axisLeft(yScale1));
+            chart2.append("g").call(d3.axisLeft(yScale2));
             
             chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", d=> `translate(${xScale(d.x0)}, ${yScale(d.length)})`)
