@@ -177,7 +177,7 @@
             chart2.append("g").attr("transform", "translate(" + 3.75 + ",0)").call(d3.axisLeft(yScale2));
             chart3.append("g").attr("transform", "translate(" + 3 + ",0)").call(d3.axisLeft(yScale3));
             chart4.append("g").attr("transform", "translate(" + 2.5 + ",0)").call(d3.axisLeft(yScale4));
-            chart5.append("g").attr("transform", "translate(" + 2 + ",0)").call(d3.axisLeft(yScale5));
+            chart5.append("g").call(d3.axisLeft(yScale5));
 
             
             chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
