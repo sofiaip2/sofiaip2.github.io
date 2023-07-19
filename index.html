@@ -173,7 +173,7 @@
             yScale4.domain([0, d3.max(bins4, function(d) { return d.length; })]);
             yScale5.domain([0, d3.max(bins5, function(d) { return d.length; })]);
             
-            chart1.append("g").call(d3.axisLeft(yScale1));
+            chart1.append("g").attr("transform", "translate(" + 60 + ", 0)").call(d3.axisLeft(yScale1));
             chart2.append("g").call(d3.axisLeft(yScale2));
             chart3.append("g").call(d3.axisLeft(yScale3));
             chart4.append("g").call(d3.axisLeft(yScale4));
