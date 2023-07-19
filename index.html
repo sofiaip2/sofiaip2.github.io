@@ -136,7 +136,8 @@
             var xScale4 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
             var xScale5 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
 
-            chart1.append("text").attr("transform", "translate(150,30)").attr("xScale1",50).attr("yScale1",50).attr("font-size", "24px").text("Age Distribution")
+            //chart1.append("text").attr("transform", "translate(150,30)").attr("xScale1",50).attr("yScale1",50).attr("font-size", "24px").text("Age Distribution")
+            chart1.append("text").attr("x", (width/2)).attr("y",0-(margin.top/2)).attr("text-anchor","middle")"style"font-size", "24px").style("text-decoration","underline").text("Age Distribution")
             chart2.append("text").attr("transform", "translate(150,30)").attr("xScale2",50).attr("yScale2",50).attr("font-size", "24px").text("Depression Distribution")
             chart3.append("text").attr("transform", "translate(150,30)").attr("xScale3",50).attr("yScale3",50).attr("font-size", "24px").text("Anxiety Distribution")
             chart4.append("text").attr("transform", "translate(150,30)").attr("xScale4",50).attr("yScale4",50).attr("font-size", "24px").text("OCD Distribution")
