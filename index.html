@@ -143,11 +143,11 @@
             chart5.append("text").attr("transform", "translate(150,30)").attr("xScale5",50).attr("yScale5",50).attr("font-size", "24px").text("Insomnia Distribution")
          
             
-            chart1.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale1));
-            chart2.append("g").attr("transform", "translate(7," + height + ")").call(d3.axisBottom(xScale2));
-            chart3.append("g").attr("transform", "translate(6.5," + height + ")").call(d3.axisBottom(xScale3));
+            chart1.append("g").attr("transform", "translate(1," + height + ")").call(d3.axisBottom(xScale1));
+            chart2.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale2));
+            chart3.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale3));
             chart4.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale4));
-            chart5.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale5));
+            chart5.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale5));
             
             var histogram1 = d3.histogram().value(function(d) { return d.Age; }).domain(xScale1.domain()).thresholds(xScale1.ticks(100));
             var histogram2 = d3.histogram().value(function(d) {return d.Depression; }).domain(xScale2.domain()).thresholds(xScale2.ticks(100));
