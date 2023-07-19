@@ -190,7 +190,7 @@
               .on("mouseleave", mouseleave);
              chart2.selectAll("rect").data(bins2).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", function(d) { return "translate(" + xScale2(d.x0) + "," + yScale2(d.length) + ")"; })
-                .attr("width", function(d) { return xScale2(d.x1) - xScale2(d.x0)-1; })
+                .attr("width", 20)
                 .attr("height", function(d) { return height-yScale2(d.length); })
                 .style("fill","#0072BC")
               .on("mouseover", mouseover)
