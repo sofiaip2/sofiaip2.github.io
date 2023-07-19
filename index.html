@@ -198,7 +198,7 @@
               .on("mouseleave", mouseleave);
             chart3.selectAll("rect").data(bins3).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", function(d) { return "translate(" + xScale3(d.x0) + "," + yScale3(d.length) + ")"; })
-                .attr("width", function(d) { return xScale3(d.x1) - xScale3(d.x0)-1; })
+                .attr("width", 15)
                 .attr("height", function(d) { return height-yScale3(d.length); })
                 .style("fill","#0072BC")
               .on("mouseover", mouseover)
@@ -206,7 +206,7 @@
               .on("mouseleave", mouseleave);
             chart4.selectAll("rect").data(bins4).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", function(d) { return "translate(" + xScale4(d.x0) + "," + yScale4(d.length) + ")"; })
-                .attr("width", function(d) { return xScale4(d.x1) - xScale4(d.x0)-1; })
+                .attr("width", 15)
                 .attr("height", function(d) { return height-yScale4(d.length); })
                 .style("fill","#0072BC")
               .on("mouseover", mouseover)
@@ -214,7 +214,7 @@
               .on("mouseleave", mouseleave);
             chart5.selectAll("rect").data(bins5).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", function(d) { return "translate(" + xScale5(d.x0) + "," + yScale5(d.length) + ")"; })
-                .attr("width", function(d) { return xScale5(d.x1) - xScale5(d.x0)-1; })
+                .attr("width", 15)
                 .attr("height", function(d) { return height-yScale5(d.length); })
                 .style("fill","#0072BC")
               .on("mouseover", mouseover)
