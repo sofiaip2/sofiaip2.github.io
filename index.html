@@ -123,11 +123,11 @@
               d3.select(this).style("stroke", "none").style("opacity",1)
             };
                         
-            var xScale1 = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Age; })]).range([0,width]);
-            var xScale2 = d3.scaleLinear().domain([0, 11]).range([0,width]);
-            var xScale3 = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Anxiety; })]).range([0,width]);
-            var xScale4 = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.OCD; })]).range([0,width]);
-            var xScale5 = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Insomnia; })]).range([0,width]);
+            var xScale1 = d3.scaleLinear().domain([0, 100]).range([0,width]);
+            var xScale2 = d3.scaleLinear().domain([0, 10]).range([0,width]);
+            var xScale3 = d3.scaleLinear().domain([0, 10]).range([0,width]);
+            var xScale4 = d3.scaleLinear().domain([0, 10]).range([0,width]);
+            var xScale5 = d3.scaleLinear().domain([0, 10]).range([0,width]);
 
             chart1.append("text").attr("transform", "translate(150,50)").attr("xScale1",50).attr("yScale1",50).attr("font-size", "24px").text("Age Distribution")
             chart2.append("text").attr("transform", "translate(150,50)").attr("xScale2",50).attr("yScale2",50).attr("font-size", "24px").text("Depression Distribution")
