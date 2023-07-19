@@ -131,10 +131,10 @@
             };
                         
             var xScale1 = d3.scaleLinear().domain([0, 100]).range([0,width]);
-            var xScale2 = d3.scaleLinear().domain([-0.99, 10.5]).range([0,width]);
-            var xScale3 = d3.scaleLinear().domain([-0.99, 10.5]).range([0,width]);
-            var xScale4 = d3.scaleLinear().domain([-0.99, 10.5]).range([0,width]);
-            var xScale5 = d3.scaleLinear().domain([-0.99, 10.5]).range([0,width]);
+            var xScale2 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
+            var xScale3 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
+            var xScale4 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
+            var xScale5 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
 
             chart1.append("text").attr("transform", "translate(150,30)").attr("xScale1",50).attr("yScale1",50).attr("font-size", "24px").text("Age Distribution")
             chart2.append("text").attr("transform", "translate(150,30)").attr("xScale2",50).attr("yScale2",50).attr("font-size", "24px").text("Depression Distribution")
@@ -174,7 +174,7 @@
             yScale5.domain([0, d3.max(bins5, function(d) { return d.length; })]);
             
             chart1.append("g").call(d3.axisLeft(yScale1));
-            chart2.append("g").call(d3.axisLeft(yScale2));
+            chart1.append("g").attr("transform", "translate(7.5," + ")").call(d3.axisLeft(yScale1));
             chart3.append("g").call(d3.axisLeft(yScale3));
             chart4.append("g").call(d3.axisLeft(yScale4));
             chart5.append("g").call(d3.axisLeft(yScale5));
