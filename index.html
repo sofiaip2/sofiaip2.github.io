@@ -130,7 +130,7 @@
               d3.select(this).style("stroke", "none").style("opacity",1)
             };
                         
-            var xScale1 = d3.scaleLinear().domain([0, 100]).range([0,width]);
+            var xScale1 = d3.scaleTime().domain([0, 100]).range([0,width]);
             var xScale2 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
             var xScale3 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
             var xScale4 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
@@ -161,7 +161,7 @@
             var bins4=histogram4(data);
             var bins5=histogram5(data);
             
-            var yScale1 = d3.scaleTime().range([height, 0]);
+            var yScale1 = d3.scaleLinear().range([height, 0]);
             var yScale2 = d3.scaleLinear().range([height, 0]);
             var yScale3 = d3.scaleLinear().range([height, 0]);
             var yScale4 = d3.scaleLinear().range([height, 0]);
