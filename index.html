@@ -23,15 +23,18 @@
     <div id="selectMe"></div>
     <div id="area1"></div>
     <div id="area2"></div>
-    <svg width = "600" height="500"></svg>
+    <div id="area3"></div>
+    <div id="area4"></div>
+    <div id="area5"></div>
+    <svg width = "500" height="500"></svg>
     <script>
         var margin = {top: 100, right: 100, bottom: 100, left: 100}, width = 900-margin.left-margin.right, height=500-margin.top-margin.bottom;
         //var svg = d3.select("#my_dataviz").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
         var chart1 = d3.select("#area1").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
         var chart2 = d3.select("#area2").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
-        var chart3 = d3.select("#area2").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
-        var chart4 = d3.select("#area2").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
-        var chart5 = d3.select("#area2").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart3 = d3.select("#area3").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart4 = d3.select("#area4").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart5 = d3.select("#area5").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
 
       
         var allData = d3.csv("scripts/mxmh_survey_results.csv");
