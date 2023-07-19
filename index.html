@@ -143,7 +143,7 @@
             chart5.append("text").attr("transform", "translate(150,30)").attr("xScale5",50).attr("yScale5",50).attr("font-size", "24px").text("Insomnia Distribution")
          
             
-            chart1.append("g").attr("transform", "translate(1," + height + ")").call(d3.axisBottom(xScale1));
+            chart1.append("g").attr("transform", "translate(2," + height + ")").call(d3.axisBottom(xScale1));
             chart2.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale2));
             chart3.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale3));
             chart4.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale4));
@@ -174,9 +174,9 @@
             yScale5.domain([0, d3.max(bins5, function(d) { return d.length; })]);
             
             chart1.append("g").call(d3.axisLeft(yScale1));
-            chart2.append("g").attr("transform", "translate(" + 3.75 + ",0)").call(d3.axisLeft(yScale2));
-            chart3.append("g").attr("transform", "translate(" + 3 + ",0)").call(d3.axisLeft(yScale3));
-            chart4.append("g").attr("transform", "translate(" + 2.5 + ",0)").call(d3.axisLeft(yScale4));
+            chart2.append("g").call(d3.axisLeft(yScale2));
+            chart3.append("g").call(d3.axisLeft(yScale3));
+            chart4.append.call(d3.axisLeft(yScale4));
             chart5.append("g").call(d3.axisLeft(yScale5));
 
             
