@@ -143,7 +143,7 @@
             chart5.append("text").attr("transform", "translate(150,50)").attr("xScale5",50).attr("yScale5",50).attr("font-size", "24px").text("Insomnia Distribution")
          
             
-            chart1.append("g").attr("transform", "translate(60," + height + ")").call(d3.axisBottom(xScale1));
+            chart1.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale1));
             chart2.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale2));
             chart3.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale3));
             chart4.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale4));
@@ -173,7 +173,7 @@
             yScale4.domain([0, d3.max(bins4, function(d) { return d.length; })]);
             yScale5.domain([0, d3.max(bins5, function(d) { return d.length; })]);
             
-            chart1.append("g").attr("transform", "translate(" + 60 + ", 0)").call(d3.axisLeft(yScale1));
+            chart1.append("g").call(d3.axisLeft(yScale1));
             chart2.append("g").call(d3.axisLeft(yScale2));
             chart3.append("g").call(d3.axisLeft(yScale3));
             chart4.append("g").call(d3.axisLeft(yScale4));
@@ -234,6 +234,11 @@
             chart5.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4).attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
 
             chart1.attr("transform", "translate(" + 60 + ",0)");
+            chart2.attr("transform", "translate(" + 60 + ",0)");
+            chart3.attr("transform", "translate(" + 60 + ",0)");
+            chart4.attr("transform", "translate(" + 60 + ",0)");
+            chart5.attr("transform", "translate(" + 60 + ",0)");
+
           };
         });      
     </script>
