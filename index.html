@@ -130,7 +130,7 @@
               d3.select(this).style("stroke", "none").style("opacity",1)
             };
                         
-            var xScale1 = d3.scaleLinear().domain([0, 100]).range([0,width]);
+            var xScale1 = d3.scaleLinear().domain([0, 100]).range([0,width]).padding(0.4);
             var xScale2 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
             var xScale3 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
             var xScale4 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
@@ -190,7 +190,7 @@
               .on("mouseleave", mouseleave);
              chart2.selectAll("rect").data(bins2).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", function(d) { return "translate(" + xScale2(d.x0) + "," + yScale2(d.length) + ")"; })
-                .attr("width", 20)
+                .attr("width", 15)
                 .attr("height", function(d) { return height-yScale2(d.length); })
                 .style("fill","#0072BC")
               .on("mouseover", mouseover)
