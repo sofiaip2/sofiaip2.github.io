@@ -189,7 +189,7 @@
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
              chart2.selectAll("rect").data(bins2).join("rect").attr("class", "bar").attr("x",1)
-              .attr("transform", d=> `translate(${xScale2(d.x0)}, ${yScale2(d.length)})`)
+              .attr("transform", d=> `translate(${xScale2(d.x0)} + 60 +, ${yScale2(d.length)})`)
                 .attr("width",d=>xScale2(d.x1) - xScale2(d.x0)-1)
                 .attr("height",d=>height-yScale2(d.length))
                 .style("fill","#0072BC")
