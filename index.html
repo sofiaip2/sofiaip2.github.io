@@ -223,7 +223,7 @@
 
 
             chart1.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Age");
-            chart1.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4).attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
+            chart1.append("text").attr("class", "y label").attr("text-anchol", "end").attr("y", 6).attr("dy", ".75em").attr("transform", "rotate(-90)").text("Number of people");
             chart2.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Depression");
             chart2.append("text").attr("class", "chart-label").attr("x", -(margin.left)*0.4).attr("y", -(margin.top/5)).attr("text-anchor", "start").text("Number of people");
             chart3.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Anxiety");
