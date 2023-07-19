@@ -150,8 +150,8 @@
             chart5.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale5));
             
             var histogram1 = d3.histogram().value(function(d) { return d.Age; }).domain(xScale1.domain()).thresholds(xScale1.ticks(100));
-            var histogram2 = d3.histogram().value(function(d) {return d.Depression; }).domain(xScale2.domain()).thresholds(xScale2.ticks(100));
-            var histogram3 = d3.histogram().value(function(d) {return d.Anxiety; }).domain(xScale3.domain()).thresholds(xScale3.ticks(100));
+            var histogram2 = d3.histogram().value(function(d) {return d.Depression; }).domain(xScale2.domain()).thresholds(xScale2.ticks(20));
+            var histogram3 = d3.histogram().value(function(d) {return d.Anxiety; }).domain(xScale3.domain()).thresholds(xScale3.ticks(10));
             var histogram4 = d3.histogram().value(function(d) {return d.OCD; }).domain(xScale4.domain()).thresholds(xScale4.ticks(100));
             var histogram5 = d3.histogram().value(function(d) {return d.Insomnia; }).domain(xScale5.domain()).thresholds(xScale5.ticks(100));
 
