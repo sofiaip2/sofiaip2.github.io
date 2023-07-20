@@ -20,6 +20,7 @@
   <body>
     <h1>Investigating Correlations Between Music and Mental Health</h1>
     <p>Sofia Perry, UIUC CS 416 SU23</p>
+    <p>Mental health has become an important topic today more than ever. With the many stresses of life, finding outlets and ways to relieve stress is becoming increasingly important. This visualization takes a look at how music can help mental health. First, we'll take a look at an overview of the dataset and break it down further by genre. In the filter bar below, respondents are counted if they reported listening to that type of music very frequently. The dataset for this project was obtained from: https://www.kaggle.com/datasets/catherinerasgaitis/mxmh-survey-results?resource=download</p>
     <div id="selectMe"></div>
     <div style="white-space: nowrap;">
       <div id="area1"></div>
@@ -46,7 +47,7 @@
           myChart(allData);
           
           const mySelection = document.getElementById("selectMe");
-          d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","25px");
+          d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","20px");
           const selectItems = ["All Genres", "Classical", "Country", "EDM", "Folk", "Gospel", "Hip Hop", "Jazz", "K pop", "Latin", "Lofi", "Metal", "Pop", "R&B", "Rap", "Rock", "Video Game Music"];
           d3.select(mySelection).append("span").append("select").attr("id","selection").attr("name", "tasks").selectAll("option").data(selectItems).enter().append("option").attr("value",d=>d).text(d=>d);
           //document.addEventListener("DOMContentLoaded", myChart());
