@@ -235,8 +235,8 @@
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
             chart6.append("g").selectAll("dot").data(data).enter().append("circle")
-              .attr("cx", function (d) { return x(d.HoursPerDay); } )
-              .attr("cy", function (d) { return y(d.Depression); } )
+              .attr("cx", function (d) { return xScale6(d.HoursPerDay); } )
+              .attr("cy", function (d) { return yScale6(d.Depression); } )
               .attr("r", 1.5)
               .style("fill", "#69b3a2")
 
