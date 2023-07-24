@@ -143,7 +143,7 @@
             var xScale3 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
             var xScale4 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
             var xScale5 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
-            var xScale6 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
+            var xScale6 = d3.scaleLinear().domain([0, 15]).range([0,width]);
 
 
             chart1.append("text").attr("transform", "translate(150,30)").attr("xScale1",50).attr("yScale1",50).attr("font-size", "24px").text("Age Distribution")
@@ -184,7 +184,7 @@
             yScale3.domain([0, d3.max(bins3, function(d) { return d.length; })]);
             yScale4.domain([0, d3.max(bins4, function(d) { return d.length; })]);
             yScale5.domain([0, d3.max(bins5, function(d) { return d.length; })]);
-            yScale6.domain([0, 20]);
+            yScale6.domain([0, 10.5]);
             
             chart1.append("g").call(d3.axisLeft(yScale1));
             chart2.append("g").call(d3.axisLeft(yScale2));
@@ -235,8 +235,8 @@
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
             chart6.append("g").selectAll("dot").data(data).enter().append("circle")
-              .attr("cx", function (d) { return xScale6(d.HoursPerDay); } )
-              .attr("cy", function (d) { return yScale6(d.Depression); } )
+              .attr("cx", function (d) { return xScale6(d.Depression); } )
+              .attr("cy", function (d) { return yScale6(d.HoursPerDay); } )
               .attr("r", 1.5)
               .style("fill", "#69b3a2")
 
@@ -251,8 +251,8 @@
             chart4.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
             chart5.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Insomnia");
             chart5.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
-            chart6.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Depression");
-            chart6.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Hours Per Day")
+            chart6.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Hours Per Day");
+            chart6.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Depression")
             
             chart1.attr("transform", "translate(" + 60 + ",0)");
             chart2.attr("transform", "translate(" + 60 + ",0)");
