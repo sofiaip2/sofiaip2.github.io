@@ -3,9 +3,9 @@
   <head>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <style>
-      .bar {
-        fill: steelblue;
-      }
+      //.bar {
+        //fill: steelblue;
+      //}
       .tooltip {
         background-color = #fff;
         font-family: lato;
@@ -200,7 +200,12 @@
               .attr("transform", function(d) { return "translate(" + xScale1(d.x0) + "," + yScale1(d.length) + ")"; })
                 .attr("width", function(d) { return xScale1(d.x1) - xScale1(d.x0)-1; })
                 .attr("height", function(d) { return height-yScale1(d.length); })
-                .style("fill","#0072BC")
+                .style("fill", function(d) {
+                  if (d.Instrumentalist == "Yes") {
+                    return "green";
+                  } else {
+                    return "blue";
+                  })
               .on("mouseover", mouseover)
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
