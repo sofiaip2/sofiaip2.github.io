@@ -23,16 +23,16 @@
     <p>Mental health has become an important topic today more than ever. With the many stresses of life, finding outlets and ways to relieve stress is becoming increasingly important. This visualization takes a look at how music can help mental health. First, we'll take a look at an overview of the dataset and break it down further by genre. In the filter bar below, respondents are counted if they reported listening to that type of music very frequently. The dataset for this project was obtained from: https://www.kaggle.com/datasets/catherinerasgaitis/mxmh-survey-results?resource=download</p>
     <div id="selectMe"></div>
     <div style="white-space: nowrap;">
-      <div id="area1"></div>
+      <div id="area1" style="display:inline"></div>
+      <div id="area6" style="display:inline"></div>
+    </div>
+    <div style="white-space: nowrap;">
       <div id="area2" style="display: inline"></div>
       <div id="area3" style="display: inline"></div>
     </div>
     <div style="white-space: nowrap;">
       <div id="area4" style="display: inline"></div>
       <div id="area5" style="display: inline"></div>
-    </div>
-    <div style="white-space: nowrap;">
-      <div id="area6" style="display:inline"></div>
     </div>
     <svg width = "500" height="500"></svg>
 
@@ -165,12 +165,14 @@
             var histogram3 = d3.histogram().value(function(d) {return d.Anxiety; }).domain(xScale3.domain()).thresholds(xScale3.ticks(100));
             var histogram4 = d3.histogram().value(function(d) {return d.OCD; }).domain(xScale4.domain()).thresholds(xScale4.ticks(100));
             var histogram5 = d3.histogram().value(function(d) {return d.Insomnia; }).domain(xScale5.domain()).thresholds(xScale5.ticks(100));
+            var histogram6 = d3.histogram().value(function(d) {return d.HoursPerDay; }).domain(xScale6.domain()).thresholds(xScale6.ticks(100));
 
             var bins1=histogram1(data);
             var bins2=histogram2(data);
             var bins3=histogram3(data);
             var bins4=histogram4(data);
             var bins5=histogram5(data);
+            var bins6=histogram6(data);
             
             var yScale1 = d3.scaleLinear().range([height, 0]);
             var yScale2 = d3.scaleLinear().range([height, 0]);
@@ -184,7 +186,7 @@
             yScale3.domain([0, d3.max(bins3, function(d) { return d.length; })]);
             yScale4.domain([0, d3.max(bins4, function(d) { return d.length; })]);
             yScale5.domain([0, d3.max(bins5, function(d) { return d.length; })]);
-            yScale6.domain([0, 10.5]);
+            yScale6.domain([0, d3.max(bins6, function(d) { return d.length; })]);
             
             chart1.append("g").call(d3.axisLeft(yScale1));
             chart2.append("g").call(d3.axisLeft(yScale2));
@@ -234,11 +236,14 @@
               .on("mouseover", mouseover)
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
-            chart6.append("g").selectAll("dot").data(data).enter().append("circle")
-              .attr("cx", function (d) { return xScale6(d.Depression); } )
-              .attr("cy", function (d) { return yScale6(d.HoursPerDay); } )
-              .attr("r", 1.5)
-              .style("fill", "#69b3a2")
+           chart6.selectAll("rect").data(bins5).join("rect").attr("class", "bar").attr("x",1)
+              .attr("transform", function(d) { return "translate(" + xScale6(d.x0) + "," + yScale6(d.length) + ")"; })
+                .attr("width", 15)
+                .attr("height", function(d) { return height-yScale6(d.length); })
+                .style("fill","#0072BC")
+              .on("mouseover", mouseover)
+              .on("mousemove", mousemove)
+              .on("mouseleave", mouseleave);
 
 
             chart1.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Age");
@@ -252,7 +257,7 @@
             chart5.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Insomnia");
             chart5.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
             chart6.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Hours Per Day");
-            chart6.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Depression")
+            chart6.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
             
             chart1.attr("transform", "translate(" + 60 + ",0)");
             chart2.attr("transform", "translate(" + 60 + ",0)");
