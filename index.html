@@ -8,7 +8,7 @@
         //fill: steelblue;
       //}
       .tooltip {
-        background-color: #fffff;
+        background: #fffff;
         font-family: lato;
         font-size: 11px;
         padding: 4px;
@@ -110,20 +110,6 @@
               myChart(filteredData)
             } else if (selectedOption == "All Genres") {               
               myChart(allData)
-              const annotations = [
-                {
-                  note: {
-                    label: "25.2 years old",
-                    title: "Average Age"
-                  },
-                  x: 100, 
-                  y: 100,
-                  dy: 100,
-                  dx: 100
-                }
-              ]
-              const makeAnnotations = d3.annotation().annotations(annotations)
-              d3.select("#chart1").append("g").call(makeAnnotations)
             }
           }); 
                     
@@ -279,6 +265,21 @@
             chart4.attr("transform", "translate(" + 60 + ",0)");
             chart5.attr("transform", "translate(" + 60 + ",0)");
             chart6.attr("transform", "translate(" + 60 + ",0)");
+
+              const annotations = [
+                {
+                  note: {
+                    label: "25.2 years old",
+                    title: "Average Age"
+                  },
+                  x: 100, 
+                  y: 100,
+                  dy: 100,
+                  dx: 100
+                }
+              ]
+              const makeAnnotations = d3.annotation().annotations(annotations)
+              d3.select("#chart1").append("g").call(makeAnnotations)
 
 
           };
