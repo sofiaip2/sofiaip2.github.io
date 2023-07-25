@@ -210,7 +210,7 @@
               .on("mouseover", mouseover)
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
-             groups.selectAll("rect").data(bins2).join("rect").attr("class", "bar").attr("x",1)
+             groups.selectAll("rect").data(function(d) { return d; }).enter().appent("rect")
               .attr("transform", function(d) { return "translate(" + xScale2(d.x0) + "," + yScale2(d.length) + ")"; })
                 .attr("width", 15)
                 .attr("height", function(d) { return height-yScale2(d.length); })
