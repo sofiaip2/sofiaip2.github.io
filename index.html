@@ -197,8 +197,10 @@
 
             var colors = ["#C9D6Df", "0072BC"];
 
-            var groups = chart2.selectAll("g.bars").data(data).enter().append("g").attr("class", "bars")
-              .style("fill", function(d, i) { return colors[i];})
+            var groups = chart2.selectAll("g.bars").data(bins2).enter().append("g").attr("class", "bars")
+              .style("fill", function(d) {
+                if (d.Instrumentalist == "Yes") { return "#C9D6DF" }
+                  else { return "0072BC" } })
         
             chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", function(d) { return "translate(" + xScale1(d.x0) + "," + yScale1(d.length) + ")"; })
@@ -208,7 +210,7 @@
               .on("mouseover", mouseover)
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
-             chart2.selectAll("rect").data(bins2).join("rect").attr("class", "bar").attr("x",1)
+             groups.selectAll("rect").data(bins2).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", function(d) { return "translate(" + xScale2(d.x0) + "," + yScale2(d.length) + ")"; })
                 .attr("width", 15)
                 .attr("height", function(d) { return height-yScale2(d.length); })
