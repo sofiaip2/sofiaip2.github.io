@@ -8,7 +8,7 @@
         //fill: steelblue;
       //}
       .tooltip {
-        background: #fffff;
+        background-color: #fffff;
         font-family: lato;
         font-size: 11px;
         padding: 4px;
@@ -272,10 +272,11 @@
                     label: "25.2 years old",
                     title: "Average Age"
                   },
-                  x: 100, 
-                  y: 100,
-                  dy: 100,
-                  dx: 100
+                  color: ['red'],
+                  x: 560, 
+                  y: 180,
+                  dy: 200,
+                  dx: 200
                 }
               ]
               const makeAnnotations = d3.annotation().annotations(annotations)
