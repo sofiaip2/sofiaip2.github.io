@@ -246,6 +246,9 @@
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
 
+            total = data.length
+            console.log(total)
+
 
             chart1.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Age");
             chart1.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
