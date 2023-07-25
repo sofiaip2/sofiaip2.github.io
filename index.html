@@ -266,14 +266,13 @@
             chart5.attr("transform", "translate(" + 60 + ",0)");
             chart6.attr("transform", "translate(" + 60 + ",0)");
 
-            const type = d3.annotationLabel
               const annotations = [
                 {
                   note: {
                     label: "25.2 years old",
-                    bgPadding: 20,
                     title: "Average Age"
                   },
+                  type: d3.annotationLabel,
                   color: ['red'],
                   x: 560, 
                   y: 180,
@@ -281,7 +280,7 @@
                   dx: 200
                 }
               ]
-              const makeAnnotations = d3.annotation().type(type).annotations(annotations)
+              const makeAnnotations = d3.annotation().annotations(annotations)
               chart1.append("g").attr("class", "annotation-group").call(makeAnnotations)
 
 
