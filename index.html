@@ -195,7 +195,7 @@
             chart5.append("g").call(d3.axisLeft(yScale5));
             chart6.append("g").call(d3.axisLeft(yScale6));
 
-            var colors = [#C9D6Df", "0072BC"];
+            var colors = ["#C9D6Df", "0072BC"];
 
             var groups = svg.selectAll("g.bars").data(data).enter().append("g").attr("class", "bars")
               .style("fill", function(d, i) { return colors[i];})
