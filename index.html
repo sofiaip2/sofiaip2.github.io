@@ -188,7 +188,7 @@
             yScale3.domain([0, d3.max(bins3, function(d) { return d.length; })]);
             yScale4.domain([0, d3.max(bins4, function(d) { return d.length; })]);
             yScale5.domain([0, d3.max(bins5, function(d) { return d.length; })]);
-            yScale6.domain([0, d3.max(bins6, function(d) { return d.length; })]);
+            yScale6.domain([0, d3.max(bins6, function(d) { return d.length; })]).tickFormat(format('%'));
             
             chart1.append("g").call(d3.axisLeft(yScale1));
             chart2.append("g").call(d3.axisLeft(yScale2));
@@ -196,25 +196,6 @@
             chart4.append("g").call(d3.axisLeft(yScale4));
             chart5.append("g").call(d3.axisLeft(yScale5));
             chart6.append("g").call(d3.axisLeft(yScale6));
-
-            total = data.length
-            percentagesDep = []
-            percentagesAnx = []
-            percentagesOCD = []
-            percentagesIns = []
-            nums = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10]
-            for (i=0; i<=10; i=i+0.5) {
-              count = 0
-              for (row in data) {
-                if (row.Depression == i) {
-                  count = count + 1
-                }
-              }
-              console.log(count)
-              pct = (count/total) * 100
-              percentagesDep.push(pct)
-            }
-            console.log(percentagesDep)
         
             chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", function(d) { return "translate(" + xScale1(d.x0) + "," + yScale1(d.length) + ")"; })
