@@ -167,8 +167,12 @@
             var histogram5 = d3.histogram().value(function(d) {return d.Insomnia; }).domain(xScale5.domain()).thresholds(xScale5.ticks(100));
             var histogram6 = d3.histogram().value(function(d) {return d.HoursPerDay; }).domain(xScale6.domain()).thresholds(xScale6.ticks(100));
 
+            var stackedData = d3.stack()
+              .keys(d.Instrumentalists)
+              (data)
+            
             var bins1=histogram1(data);
-            var bins2=histogram2(data);
+            var bins2=histogram2(stackedData);
             var bins3=histogram3(data);
             var bins4=histogram4(data);
             var bins5=histogram5(data);
@@ -194,19 +198,12 @@
             chart4.append("g").call(d3.axisLeft(yScale4));
             chart5.append("g").call(d3.axisLeft(yScale5));
             chart6.append("g").call(d3.axisLeft(yScale6));
-
-            
+        
             chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
               .attr("transform", function(d) { return "translate(" + xScale1(d.x0) + "," + yScale1(d.length) + ")"; })
                 .attr("width", function(d) { return xScale1(d.x1) - xScale1(d.x0)-1; })
                 .attr("height", function(d) { return height-yScale1(d.length); })
-                .style("fill", function(d) {
-                  if (d.Instrumentalist == "Yes") {
-                    return "green";
-                  } else {
-                    return "#0072BC";
-                  }
-                })
+                .style("fill", #0072BC)
               .on("mouseover", mouseover)
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave);
@@ -218,7 +215,7 @@
                   if (d.Instrumentalist == "Yes") {
                     return "green";
                   } else {
-                    return "#0072BC";
+                    return "#0072BC"
                   }
                 })
               .on("mouseover", mouseover)
