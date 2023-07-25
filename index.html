@@ -2,6 +2,7 @@
 <html>
   <head>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
     <style>
       //.bar {
         //fill: steelblue;
@@ -109,6 +110,20 @@
               myChart(filteredData)
             } else if (selectedOption == "All Genres") {               
               myChart(allData)
+              const annotations = [
+                {
+                  note: {
+                    label: "25.2 years old",
+                    title: "Average Age"
+                  },
+                  x: 100, 
+                  y: 100,
+                  dy: 100,
+                  dx: 100
+                }
+              ]
+              const makeAnnotations = d3.annotation().annotations(annotations)
+              d3.select("chart1").append("g").call(makeAnnotations)
             }
           }); 
                     
