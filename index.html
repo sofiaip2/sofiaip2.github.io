@@ -197,7 +197,7 @@
 
             var colors = ["#C9D6Df", "0072BC"];
 
-            var groups = svg.selectAll("g.bars").data(data).enter().append("g").attr("class", "bars")
+            var groups = chart2.selectAll("g.bars").data(data).enter().append("g").attr("class", "bars")
               .style("fill", function(d, i) { return colors[i];})
         
             chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
