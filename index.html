@@ -131,8 +131,6 @@
             };
 
             const mousemove = function(event,d) {
-              tooltip.html(`<b>Number of people: </b>: ${d.length}`)
-                .style("top", event.pageY - 10 + "px").style("left", event.pageX + 10 + "px")
               tooltip.html(`<b>Percentage: </b>: ${((d.length/data.length)*100).toFixed(2)}`)
                 .style("top", event.pageY - 10 + "px").style("left", event.pageX + 10 + "px")
             };
@@ -275,7 +273,12 @@
                     label: "25.2 years old",
                     title: "Average Age"
                   },
-                  type: d3.annotationLabel,
+                  connector: {
+                    end: "dot",
+                    type: "line",
+                    lineType: "vertical",
+                    endScale: 10
+                  },
                   color: ['red'],
                   x: 560, 
                   y: 180,
