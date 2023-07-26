@@ -289,8 +289,8 @@
                 }
               ]
               const makeAnnotations = d3.annotation().annotations(annotations)
-              chart1.append("g").attr("class", "annotation-group").call(makeAnnotations)
-
+              //chart1.append("g").attr("class", "annotation-group").call(makeAnnotations)
+              d3.select("#area1").append("g").attr("class", "annotation-group").call(makeAnnotations)
 
           };
         });      
