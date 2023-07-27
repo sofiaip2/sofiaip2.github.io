@@ -1,67 +1,116 @@
+<!DOCTYPE html>
 <html>
-<meta charset="utf-8">
-<style> /* set the CSS */
+  <head>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+    <style>
+      //.bar {
+        //fill: steelblue;
+      //}
+      .tooltip {
+        background-color: #fffff;
+        font-family: lato;
+        font-size: 11px;
+        padding: 4px;
+        color: #666666
+        border:none;
+        box-shadow: 0px 0px 3px 0px #E6E6E6
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Investigating Correlations Between Music and Mental Health</h1>
+    <p>Sofia Perry, UIUC CS 416 SU23</p>
+    <p>Mental health has become an important topic today more than ever. With the many stresses of life, finding outlets and ways to relieve stress is becoming increasingly important. This visualization takes a look at how music can help mental health, more specifically if listening to different genres affects mental health. First, we'll take a look at an overview of the dataset and break it down further by genre. In the filter bar below, respondents are counted if they reported listening to that type of music "very frequently". Please take a look at each genre using the filter bar below and explore the charts in each genre! Hover over each bar to see more information.
+      The dataset for this project was obtained from: https://www.kaggle.com/datasets/catherinerasgaitis/mxmh-survey-results?resource=download</p>
+    <div id="selectMe"></div>
+    <svg width = "500" height="500"></svg>
 
-.bar { fill: steelblue; }
+    
+    <script>
+        var margin = {top: 100, right: 100, bottom: 100, left: 100}, width = 600-margin.left-margin.right, height=500-margin.top-margin.bottom;
+        var chart1 = d3.select("#area1").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
 
-</style>
-<body>
-	
-<!-- load the d3.js library -->    	
-<script src="https://d3js.org/d3.v6.min.js"></script>
-<script>
+      
+        var data = d3.csv("scripts/mxmh_survey_results.csv");
+        data.then(function (data) {
 
-// Set graph margins and dimensions
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+             const annotations = [
+                {
+                  note: {
+                    label: "25.2 years old",
+                    title: "Average Age",
+                    align: "left",
+                    wrap: 100
+                  },
+                  connector: {
+                    end: "dot",
+                    type: "line",
+                    lineType: "vertical",
+                    endScale: 10
+                  },
+                  color: ["0072BC"],
+                  x: 560, 
+                  y: 180,
+                  dy: 200,
+                  dx: 200
+                }
+              ]
+              const makeAnnotations = d3.annotation().annotations(annotations)
+              //chart1.append("g").attr("class", "annotation-group").call(makeAnnotations)
+              d3.select("#area1").append("g").attr("class", "annotation-group").call(makeAnnotations)
+                        
+            var xScale1 = d3.scaleLinear().domain([0, 100]).range([0,width]);
 
-// Set ranges
-var x = d3.scaleBand()
-          .range([0, width])
-          .padding(0.1);
-var y = d3.scaleLinear()
-          .range([height, 0]);
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", 
-          "translate(" + margin.left + "," + margin.top + ")");
+            chart1.append("text").attr("transform", "translate(150,30)").attr("xScale1",50).attr("yScale1",50).attr("font-size", "24px").text("Age Distribution")
+            
+            chart1.append("g").attr("transform", "translate(2," + height + ")").call(d3.axisBottom(xScale1));
+            
+            var histogram1 = d3.histogram().value(function(d) { return d.Age; }).domain(xScale1.domain()).thresholds(xScale1.ticks(100));
 
-// Get data
-d3.csv("amounts.csv").then(function(data) {
+            var bins1=histogram1(data);
+            
+            var yScale1 = d3.scaleLinear().range([height, 0]);
 
-  // Format data
-  data.forEach(function(d) {
-    d.amounts = +d.amounts;
-  });
+            yScale1.domain([0, d3.max(bins1, function(d) { return d.length; })]);
+            
+            chart1.append("g").call(d3.axisLeft(yScale1));
+        
+            chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
+              .attr("transform", function(d) { return "translate(" + xScale1(d.x0) + "," + yScale1(d.length) + ")"; })
+                .attr("width", function(d) { return xScale1(d.x1) - xScale1(d.x0)-1; })
+                .attr("height", function(d) { return height-yScale1(d.length); })
+                .style("fill", "#0072BC")
+              
 
-  // Scale the range of the data in the domains
-  x.domain(data.map(function(d) { return d.name; }));
-  y.domain([0, d3.max(data, function(d) { return d.amounts; })]);
-
-  // Append rectangles for bar chart
-  svg.selectAll(".bar")
-      .data(data)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.name); })
-      .attr("width", x.bandwidth())
-      .attr("y", function(d) { return y(d.amounts); })
-      .attr("height", function(d) { return height - y(d.amounts); });
-
-  // Add x axis
-  svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
-
-  // Add y axis
-  svg.append("g")
-      .call(d3.axisLeft(y));
-
-});
-
-</script>
-</body>
+/*
+              const annotations = [
+                {
+                  note: {
+                    label: "25.2 years old",
+                    title: "Average Age",
+                    align: "left",
+                    wrap: 100
+                  },
+                  connector: {
+                    end: "dot",
+                    type: "line",
+                    lineType : "vertical",
+                    endScale: 10
+                  },
+                  color: ["0072BC"],
+                  x: 560, 
+                  y: 180,
+                  dy: 200,
+                  dx: 200
+                }
+              ]
+              const makeAnnotations = d3.annotation().annotations(annotations)
+              //chart1.append("g").attr("class", "annotation-group").call(makeAnnotations)
+              d3.select("#area1").append("g").attr("class", "annotation-group").call(makeAnnotations)
+*/
+          };
+        });      
+    </script>
+  </body>
 </html>
