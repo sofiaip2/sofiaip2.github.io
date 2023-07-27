@@ -111,6 +111,30 @@
               myChart(filteredData)
             } else if (selectedOption == "All Genres") {               
               myChart(allData)
+              
+             const annotations = [
+                {
+                  note: {
+                    label: "25.2 years old",
+                    title: "Average Age",
+                    align: "left",
+                    wrap: 100
+                  },
+                  connector: {
+                    end: "dot",
+                    type: "line",
+                    lineType: "vertical",
+                    endScale: 10
+                  },
+                  color: ["0072BC"],
+                  x: 560, 
+                  y: 180,
+                  dy: 200,
+                  dx: 200
+                }
+              ]
+              const makeAnnotations = d3.annotation().annotations(annotations)
+              d3.select("#area1").append("g").attr("class", "annotation-group").call(makeAnnotations)
             }
           }); 
                     
