@@ -1,81 +1,66 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
-    <style>
-      //.bar {
-        //fill: steelblue;
-      //}
-      .tooltip {
-        background-color: #fffff;
-        font-family: lato;
-        font-size: 11px;
-        padding: 4px;
-        color: #666666
-        border:none;
-        box-shadow: 0px 0px 3px 0px #E6E6E6
-      }
-    </style>
+        <script src="https://d3js.org/d3.v6.min.js"></script>
   </head>
   <body>
-    <svg width = "500" height="500"></svg>
+  <script>
+let width= 500
+let height= 400
+let leftMargin= 30
+let rightMargin= 20
+let bottomMargin= 30
+let topMargin= 30
+let dataObj = {
+   Switzerland: 7.30,
+   Sweden: 6.37,
+   Norway: 6.09,
+   "United States": 5.66,
+   Israel: 5.35,
+   Canada: 5.29 
+}
+function drawChart(){
+   let svg = d3.select('#chartdiv')
+      .append('svg')
+      .attr("width", width + leftMargin + rightMargin)
+      .attr("height", height + topMargin + bottomMargin)
+   // X scale and axis
+   let xscale = d3.scaleBand()
+      .domain(Object.keys(dataObj))
+      .range([0, width]);
+   let x_axis = d3.axisBottom(xscale)
+   
+   svg.append("g")
+      .attr("transform", `translate(${leftMargin},   ${topMargin+height})`)
+      .call(x_axis);
+   // Y scale and axis
+   let yscale = d3.scaleLinear()
+      .domain([0, Math.max(...Object.values(dataObj))])
+      .range([height, 0])
+   let y_axis = d3.axisLeft(yscale)
+   
+   svg.append("g")
+      .attr("transform", `translate(${leftMargin}, ${topMargin})`)
+      .call(y_axis);
+   Object.values(dataObj).forEach( (element, index) => {
+      let g = svg.append("g")
+      let barWidth = 40;
+      let x = (index * (width/ Object.values(dataObj).length) +  (width/ Object.values(dataObj).length)/2 - barWidth/2)
+   g.append("rect")
+      .attr("x", x)
+      .attr("y", ( yscale(element)))
+      .attr("height",  height - yscale(element))
+      .attr("width", barWidth)
+      .attr("fill",  "#88aaee")
+      .attr("transform", `translate(${leftMargin}, ${topMargin})`)
+   g.append("text")
+      .attr("x", x )
+      .attr("y", (yscale(element)))
+      .text(element)
+      .attr("transform", `translate(${leftMargin}, ${topMargin})`)
+   })
+}
+drawChart()      
 
-    
-    <script>
-        var margin = {top: 100, right: 100, bottom: 100, left: 100}, width = 600-margin.left-margin.right, height=500-margin.top-margin.bottom;
-        var chart1 = d3.select("#area1").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
-        var data = d3.csv("scripts/mxmh_survey_results.csv");
-        data.then(function (data) {
-                        
-            var xScale1 = d3.scaleLinear().domain([0, 100]).range([0,width]);
-
-            chart1.append("text").attr("transform", "translate(150,30)").attr("xScale1",50).attr("yScale1",50).attr("font-size", "24px").text("Age Distribution")
-            
-            chart1.append("g").attr("transform", "translate(2," + height + ")").call(d3.axisBottom(xScale1));
-            
-            var histogram1 = d3.histogram().value(function(d) { return d.Age; }).domain(xScale1.domain()).thresholds(xScale1.ticks(100));
-
-            var bins1=histogram1(data);
-            
-            var yScale1 = d3.scaleLinear().range([height, 0]);
-
-            yScale1.domain([0, d3.max(bins1, function(d) { return d.length; })]);
-            
-            chart1.append("g").call(d3.axisLeft(yScale1));
-        
-            chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
-              .attr("transform", function(d) { return "translate(" + xScale1(d.x0) + "," + yScale1(d.length) + ")"; })
-                .attr("width", function(d) { return xScale1(d.x1) - xScale1(d.x0)-1; })
-                .attr("height", function(d) { return height-yScale1(d.length); })
-                .style("fill", "#0072BC")
-            
-              const annotations = [
-                {
-                  note: {
-                    label: "25.2 years old",
-                    title: "Average Age",
-                    align: "left",
-                    wrap: 100
-                  },
-                  connector: {
-                    end: "dot",
-                    type: "line",
-                    lineType : "vertical",
-                    endScale: 10
-                  },
-                  color: ["0072BC"],
-                  x: 560, 
-                  y: 180,
-                  dy: 200,
-                  dx: 200
-                }
-              ]
-              const makeAnnotations = d3.annotation().annotations(annotations)
-              //chart1.append("g").attr("class", "annotation-group").call(makeAnnotations)
-              d3.select("#area1").append("g").attr("class", "annotation-group").call(makeAnnotations)
-          
-        });      
-    </script>
+  </script>
   </body>
 </html>
