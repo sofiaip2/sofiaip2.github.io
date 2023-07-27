@@ -1,66 +1,50 @@
-<html>
-  <head>
-        <script src="https://d3js.org/d3.v6.min.js"></script>
-  </head>
-  <body>
-  <script>
-let width= 500
-let height= 400
-let leftMargin= 30
-let rightMargin= 20
-let bottomMargin= 30
-let topMargin= 30
-let dataObj = {
-   Switzerland: 7.30,
-   Sweden: 6.37,
-   Norway: 6.09,
-   "United States": 5.66,
-   Israel: 5.35,
-   Canada: 5.29 
-}
-function drawChart(){
-   let svg = d3.select('#chartdiv')
-      .append('svg')
-      .attr("width", width + leftMargin + rightMargin)
-      .attr("height", height + topMargin + bottomMargin)
-   // X scale and axis
-   let xscale = d3.scaleBand()
-      .domain(Object.keys(dataObj))
-      .range([0, width]);
-   let x_axis = d3.axisBottom(xscale)
-   
-   svg.append("g")
-      .attr("transform", `translate(${leftMargin},   ${topMargin+height})`)
-      .call(x_axis);
-   // Y scale and axis
-   let yscale = d3.scaleLinear()
-      .domain([0, Math.max(...Object.values(dataObj))])
-      .range([height, 0])
-   let y_axis = d3.axisLeft(yscale)
-   
-   svg.append("g")
-      .attr("transform", `translate(${leftMargin}, ${topMargin})`)
-      .call(y_axis);
-   Object.values(dataObj).forEach( (element, index) => {
-      let g = svg.append("g")
-      let barWidth = 40;
-      let x = (index * (width/ Object.values(dataObj).length) +  (width/ Object.values(dataObj).length)/2 - barWidth/2)
-   g.append("rect")
-      .attr("x", x)
-      .attr("y", ( yscale(element)))
-      .attr("height",  height - yscale(element))
-      .attr("width", barWidth)
-      .attr("fill",  "#88aaee")
-      .attr("transform", `translate(${leftMargin}, ${topMargin})`)
-   g.append("text")
-      .attr("x", x )
-      .attr("y", (yscale(element)))
-      .text(element)
-      .attr("transform", `translate(${leftMargin}, ${topMargin})`)
-   })
-}
-drawChart()      
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>Simple Bar Chart</title>
+<script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+<style></style>
+</head>
+<body>
+<div id="container" class="svg-container"></div>
+<script>
 
-  </script>
-  </body>
-</html>
+//------------------------SVG PREPARATION------------------------//
+var width = 960;
+var height = 500;
+var adj = 20;
+// we are appending SVG first
+var svg = d3.select("div#container").append("svg")
+.attr("preserveAspectRatio", "xMinYMin meet")
+.attr("viewBox", "-" + adj + " -"+ adj + " " + (width + adj) + " " + (height + adj))
+.style("padding", 5)
+.style("margin", 5)
+.classed("svg-content", true);
+
+var dataset = d3.csv("data.csv");
+dataset.then(function(data) {
+    data.map(function(d) {
+            d.val = +d.val;
+            return d;});
+});
+console.log(dataset);
+
+  dataset.then(function(data) {  
+    svg.selectAll("div")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", function (d, i) {
+        for (i>0; i < data.length; i++) {
+            return i * 21;
+        }
+    })
+    .attr("y", function (d) {
+        return height - (d.val*10);
+    })
+    .attr("width", 20)
+    .attr("height", function (d) {
+        return d.val*10;
+    });
+});
