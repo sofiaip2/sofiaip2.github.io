@@ -1,49 +1,324 @@
 <!DOCTYPE html>
-<head>
-<meta charset="utf-8">
-<title>Simple Bar Chart</title>
-<script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
-<style></style>
-</head>
-<body>
-<div id="container" class="svg-container"></div>
-<script>
-//------------------------SVG PREPARATION------------------------//
-var width = 960;
-var height = 500;
-var adj = 20;
-// we are appending SVG first
-var svg = d3.select("div#container").append("svg")
-.attr("preserveAspectRatio", "xMinYMin meet")
-.attr("viewBox", "-" + adj + " -"+ adj + " " + (width + adj) + " " + (height + adj))
-.style("padding", 5)
-.style("margin", 5)
-.classed("svg-content", true);
-  
-var dataset = d3.csv("data.csv");
-dataset.then(function(data) {
-    data.map(function(d) {
-            d.val = +d.val;
-            return d;});
-});
-console.log(dataset);
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+    <style>
+      //.bar {
+        //fill: steelblue;
+      //}
+      .tooltip {
+        background-color: #fffff;
+        font-family: lato;
+        font-size: 11px;
+        padding: 4px;
+        color: #666666
+        border:none;
+        box-shadow: 0px 0px 3px 0px #E6E6E6
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Investigating Correlations Between Music and Mental Health</h1>
+    <p>Sofia Perry, UIUC CS 416 SU23</p>
+    <p>Mental health has become an important topic today more than ever. With the many stresses of life, finding outlets and ways to relieve stress is becoming increasingly important. This visualization takes a look at how music can help mental health, more specifically if listening to different genres affects mental health. First, we'll take a look at an overview of the dataset and break it down further by genre. In the filter bar below, respondents are counted if they reported listening to that type of music "very frequently". Please take a look at each genre using the filter bar below and explore the charts in each genre! Hover over each bar to see more information.
+      The dataset for this project was obtained from: https://www.kaggle.com/datasets/catherinerasgaitis/mxmh-survey-results?resource=download</p>
+    <div id="selectMe"></div>
+    <div style="white-space: nowrap;">
+      <div id="area1" style="display:inline"></div>
+      <div id="area6" style="display:inline"></div>
+    </div>
+    <div style="white-space: nowrap;">
+      <div id="area2" style="display: inline"></div>
+      <div id="area3" style="display: inline"></div>
+    </div>
+    <div style="white-space: nowrap;">
+      <div id="area4" style="display: inline"></div>
+      <div id="area5" style="display: inline"></div>
+    </div>
+    <svg width = "500" height="500"></svg>
 
-dataset.then(function(data) {  
-    svg.selectAll("div")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("class", "bar")
-    .attr("x", function (d, i) {
-        for (i>0; i < data.length; i++) {
-            return i * 21;
-        }
-    })
-    .attr("y", function (d) {
-        return height - (d.val*10);
-    })
-    .attr("width", 20)
-    .attr("height", function (d) {
-        return d.val*10;
-    });
-});
+    
+    <script>
+        var margin = {top: 100, right: 100, bottom: 100, left: 100}, width = 600-margin.left-margin.right, height=500-margin.top-margin.bottom;
+        //var svg = d3.select("#my_dataviz").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart1 = d3.select("#area1").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart2 = d3.select("#area2").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart3 = d3.select("#area3").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart4 = d3.select("#area4").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart5 = d3.select("#area5").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+        var chart6 = d3.select("#area6").append("svg").attr("width", width + margin.left + margin.right).attr("height", height+margin.top+margin.bottom).append("g").attr("transform", "translate("+margin.left+","+margin+top+")");            
+
+      
+        var allData = d3.csv("scripts/mxmh_survey_results.csv");
+        allData.then(function (allData) {
+          myChart(allData);
+          
+          const mySelection = document.getElementById("selectMe");
+          d3.select(mySelection).append("span").append("p").attr("class","label").text("How should these bars be sorted?").style("front-weight","bold").style("color","red").style("font-size","20px");
+          const selectItems = ["All Genres", "Classical", "Country", "EDM", "Folk", "Gospel", "Hip Hop", "Jazz", "K pop", "Latin", "Lofi", "Metal", "Pop", "R&B", "Rap", "Rock", "Video Game Music"];
+          d3.select(mySelection).append("span").append("select").attr("id","selection").attr("name", "tasks").selectAll("option").data(selectItems).enter().append("option").attr("value",d=>d).text(d=>d);
+          //document.addEventListener("DOMContentLoaded", myChart());
+          d3.select("#selection").on("change", function() {
+            const selectedOption = d3.select(this).node().value;
+            if (selectedOption == "Classical") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyClassical"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Country") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyCountry"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "EDM") {
+              var filteredData =allData.filter(function(d) { if(d["FrequencyEDM"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Folk") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyFolk"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Gospel") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyGospel"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Hip Hop") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyHipHop"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Jazz") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyJazz"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "K pop") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyKpop"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Latin") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyLatin"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Lofi") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyLofi"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Metal") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyMetal"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Pop") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyPop"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "R&B") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyR&B"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Rap") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyRap"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Rock") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyRock"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "Video Game Music") {
+              var filteredData = allData.filter(function(d) { if(d["FrequencyVideoGameMusic"] == "Very frequently") { return d } })
+              myChart(filteredData)
+            } else if (selectedOption == "All Genres") {               
+              myChart(allData)
+            }
+          }); 
+                    
+          function myChart(data) {
+                          
+            chart1.selectAll("g").remove();
+            chart2.selectAll("g").remove();
+            chart3.selectAll("g").remove();
+            chart4.selectAll("g").remove();
+            chart5.selectAll("g").remove();
+            chart6.selectAll("g").remove();
+/*
+             const annotations = [
+                {
+                  note: {
+                    label: "25.2 years old",
+                    title: "Average Age",
+                    align: "left",
+                    wrap: 100
+                  },
+                  connector: {
+                    end: "dot",
+                    type: "line",
+                    lineType: "vertical",
+                    endScale: 10
+                  },
+                  color: ["0072BC"],
+                  x: 560, 
+                  y: 180,
+                  dy: 200,
+                  dx: 200
+                }
+              ]
+              const makeAnnotations = d3.annotation().annotations(annotations)
+              //chart1.append("g").attr("class", "annotation-group").call(makeAnnotations)
+              d3.select("#area1").append("g").attr("class", "annotation-group").call(makeAnnotations)
+*/
+            
+            const tooltip = d3.select("body").append("div").attr("class", "tooltip").attr("style", "position: absolute; opacity: 1;");
+            const mouseover = function(d) {
+              tooltip.style("opacity",1)
+              d3.select(this).style("stroke", "#EF4A60").style("opacity", .5)
+            };
+
+            const mousemove = function(event,d) {
+              tooltip.html(`<b>Percentage </b>: ${((d.length/data.length)*100).toFixed(2)}`)
+                .style("top", event.pageY - 10 + "px").style("left", event.pageX + 10 + "px")
+            };
+
+            const mouseleave = function(d) {
+              tooltip.style("opacity", 0)
+              d3.select(this).style("stroke", "none").style("opacity",1)
+            };
+                        
+            var xScale1 = d3.scaleLinear().domain([0, 100]).range([0,width]);
+            var xScale2 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
+            var xScale3 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
+            var xScale4 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
+            var xScale5 = d3.scaleLinear().domain([0, 10.5]).range([0,width]);
+            var xScale6 = d3.scaleLinear().domain([0, 11]).range([0,width]);
+
+
+            chart1.append("text").attr("transform", "translate(150,30)").attr("xScale1",50).attr("yScale1",50).attr("font-size", "24px").text("Age Distribution")
+            chart2.append("text").attr("transform", "translate(150,30)").attr("xScale2",50).attr("yScale2",50).attr("font-size", "24px").text("Depression Distribution")
+            chart3.append("text").attr("transform", "translate(150,30)").attr("xScale3",50).attr("yScale3",50).attr("font-size", "24px").text("Anxiety Distribution")
+            chart4.append("text").attr("transform", "translate(150,30)").attr("xScale4",50).attr("yScale4",50).attr("font-size", "24px").text("OCD Distribution")
+            chart5.append("text").attr("transform", "translate(150,30)").attr("xScale5",50).attr("yScale5",50).attr("font-size", "24px").text("Insomnia Distribution")
+            chart6.append("text").attr("transform", "translate(150,30)").attr("xScale6",50).attr("yScale6",50).attr("font-size", "24px").text("Hours per Day Listening to Music")
+            
+            chart1.append("g").attr("transform", "translate(2," + height + ")").call(d3.axisBottom(xScale1));
+            chart2.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale2));
+            chart3.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale3));
+            chart4.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale4));
+            chart5.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale5));
+            chart6.append("g").attr("transform", "translate(7.5," + height + ")").call(d3.axisBottom(xScale6));
+            
+            var histogram1 = d3.histogram().value(function(d) { return d.Age; }).domain(xScale1.domain()).thresholds(xScale1.ticks(100));
+            var histogram2 = d3.histogram().value(function(d) {return d.Depression; }).domain(xScale2.domain()).thresholds(xScale2.ticks(100));
+            var histogram3 = d3.histogram().value(function(d) {return d.Anxiety; }).domain(xScale3.domain()).thresholds(xScale3.ticks(100));
+            var histogram4 = d3.histogram().value(function(d) {return d.OCD; }).domain(xScale4.domain()).thresholds(xScale4.ticks(100));
+            var histogram5 = d3.histogram().value(function(d) {return d.Insomnia; }).domain(xScale5.domain()).thresholds(xScale5.ticks(100));
+            var histogram6 = d3.histogram().value(function(d) {return d.HoursPerDay; }).domain(xScale6.domain()).thresholds(xScale6.ticks(100));
+
+            var bins1=histogram1(data);
+            var bins2=histogram2(data);
+            var bins3=histogram3(data);
+            var bins4=histogram4(data);
+            var bins5=histogram5(data);
+            var bins6=histogram6(data);
+            
+            var yScale1 = d3.scaleLinear().range([height, 0]);
+            var yScale2 = d3.scaleLinear().range([height, 0]);
+            var yScale3 = d3.scaleLinear().range([height, 0]);
+            var yScale4 = d3.scaleLinear().range([height, 0]);
+            var yScale5 = d3.scaleLinear().range([height, 0]);
+            var yScale6 = d3.scaleLinear().range([height, 0]);
+
+            yScale1.domain([0, d3.max(bins1, function(d) { return d.length; })]);
+            yScale2.domain([0, d3.max(bins2, function(d) { return d.length; })]);
+            yScale3.domain([0, d3.max(bins3, function(d) { return d.length; })]);
+            yScale4.domain([0, d3.max(bins4, function(d) { return d.length; })]);
+            yScale5.domain([0, d3.max(bins5, function(d) { return d.length; })]);
+            yScale6.domain([0, d3.max(bins6, function(d) { return d.length; })]);
+            
+            chart1.append("g").call(d3.axisLeft(yScale1));
+            chart2.append("g").call(d3.axisLeft(yScale2));
+            chart3.append("g").call(d3.axisLeft(yScale3));
+            chart4.append("g").call(d3.axisLeft(yScale4));
+            chart5.append("g").call(d3.axisLeft(yScale5));
+            chart6.append("g").call(d3.axisLeft(yScale6));
+        
+            chart1.selectAll("rect").data(bins1).join("rect").attr("class", "bar").attr("x",1)
+              .attr("transform", function(d) { return "translate(" + xScale1(d.x0) + "," + yScale1(d.length) + ")"; })
+                .attr("width", function(d) { return xScale1(d.x1) - xScale1(d.x0)-1; })
+                .attr("height", function(d) { return height-yScale1(d.length); })
+                .style("fill", "#0072BC")
+              .on("mouseover", mouseover)
+              .on("mousemove", mousemove)
+              .on("mouseleave", mouseleave);
+            chart2.selectAll("rect").data(bins2).join("rect").attr("class", "bar").attr("x",1)
+              .attr("transform", function(d) { return "translate(" + xScale2(d.x0) + "," + yScale2(d.length) + ")"; })
+                .attr("width", 15)
+                .attr("height", function(d) { return height-yScale2(d.length); })
+                .style("fill", "#746AB0")
+              .on("mouseover", mouseover)
+              .on("mousemove", mousemove)
+              .on("mouseleave", mouseleave);
+            chart3.selectAll("rect").data(bins3).join("rect").attr("class", "bar").attr("x",1)
+              .attr("transform", function(d) { return "translate(" + xScale3(d.x0) + "," + yScale3(d.length) + ")"; })
+                .attr("width", 15)
+                .attr("height", function(d) { return height-yScale3(d.length); })
+                .style("fill","#FF7F50")
+              .on("mouseover", mouseover)
+              .on("mousemove", mousemove)
+              .on("mouseleave", mouseleave);
+            chart4.selectAll("rect").data(bins4).join("rect").attr("class", "bar").attr("x",1)
+              .attr("transform", function(d) { return "translate(" + xScale4(d.x0) + "," + yScale4(d.length) + ")"; })
+                .attr("width", 15)
+                .attr("height", function(d) { return height-yScale4(d.length); })
+                .style("fill","#CFB53B")
+              .on("mouseover", mouseover)
+              .on("mousemove", mousemove)
+              .on("mouseleave", mouseleave);
+            chart5.selectAll("rect").data(bins5).join("rect").attr("class", "bar").attr("x",1)
+              .attr("transform", function(d) { return "translate(" + xScale5(d.x0) + "," + yScale5(d.length) + ")"; })
+                .attr("width", 15)
+                .attr("height", function(d) { return height-yScale5(d.length); })
+                .style("fill","#B22222")
+              .on("mouseover", mouseover)
+              .on("mousemove", mousemove)
+              .on("mouseleave", mouseleave);
+           chart6.selectAll("rect").data(bins5).join("rect").attr("class", "bar").attr("x",1)
+              .attr("transform", function(d) { return "translate(" + xScale6(d.x0) + "," + yScale6(d.length) + ")"; })
+                .attr("width", 15)
+                .attr("height", function(d) { return height-yScale6(d.length); })
+                .style("fill","#228B22")
+              .on("mouseover", mouseover)
+              .on("mousemove", mousemove)
+              .on("mouseleave", mouseleave);
+
+            
+            chart1.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Age");
+            chart1.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
+            chart2.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Depression");
+            chart2.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
+            chart3.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Anxiety");
+            chart3.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
+            chart4.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("OCD");
+            chart4.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
+            chart5.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Insomnia");
+            chart5.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
+            chart6.append("text").attr("class", "chart-label").attr("x", width/2).attr("y", height+margin.bottom/1.7).attr("text-anchor", "middle").text("Hours Per Day");
+            chart6.append("text").attr("text-anchol", "end").attr("transform", "rotate(-90)").attr("y", -margin.left+70).attr("x", -margin.top - 100).text("Number of People")
+            
+            chart1.attr("transform", "translate(" + 60 + ",0)");
+            chart2.attr("transform", "translate(" + 60 + ",0)");
+            chart3.attr("transform", "translate(" + 60 + ",0)");
+            chart4.attr("transform", "translate(" + 60 + ",0)");
+            chart5.attr("transform", "translate(" + 60 + ",0)");
+            chart6.attr("transform", "translate(" + 60 + ",0)");
+/*
+              const annotations = [
+                {
+                  note: {
+                    label: "25.2 years old",
+                    title: "Average Age",
+                    align: "left",
+                    wrap: 100
+                  },
+                  connector: {
+                    end: "dot",
+                    type: "line",
+                    lineType : "vertical",
+                    endScale: 10
+                  },
+                  color: ["0072BC"],
+                  x: 560, 
+                  y: 180,
+                  dy: 200,
+                  dx: 200
+                }
+              ]
+              const makeAnnotations = d3.annotation().annotations(annotations)
+              //chart1.append("g").attr("class", "annotation-group").call(makeAnnotations)
+              d3.select("#area1").append("g").attr("class", "annotation-group").call(makeAnnotations)
+*/
+          };
+        });      
+    </script>
+  </body>
+</html>
